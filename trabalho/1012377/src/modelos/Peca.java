@@ -11,7 +11,7 @@ public class Peca {
 	public void setFigura(String figura) {
 		this.figura = figura;
 	}
-
+ 
 	public void print(){
 		System.out.println("hello wolrd!");
 	}
