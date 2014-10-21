@@ -2,16 +2,25 @@ package modelos;
 
 public class Peca {
 	
-	private String figura;
+	private Casa casa;
+	private PecaEnum nome;
 	
-	public String getFigura() {
-		return figura;
+	public PecaEnum getNome() {
+		return nome;
 	}
 
-	public void setFigura(String figura) {
-		this.figura = figura;
+	public void setNome(PecaEnum nome) {
+		this.nome = nome;
 	}
- 
+
+	public Casa getCasa() {
+		return casa;
+	}
+
+	public void setCasa(Casa casa) {
+		this.casa = casa;
+	}
+
 	public void print(){
 		System.out.println("hello wolrd!");
 	}
