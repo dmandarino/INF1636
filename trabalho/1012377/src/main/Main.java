@@ -1,15 +1,14 @@
 package main;
 
-import visualizacao.XadrezFrame;
+import modelos.Peca;
 
-public class Main 
-{
+public class Main {
 
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		XadrezFrame f	= new XadrezFrame();
-		f.setVisible(true);
+		Peca p = new Peca();
 		
+		p.print();
 	}
+
 }
