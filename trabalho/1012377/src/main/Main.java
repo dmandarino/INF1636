@@ -19,8 +19,8 @@ public class Main
 		Casa casa = new Casa();
 		Casa casaDestino = new Casa();
 		
-//		XadrezFrame f	= new XadrezFrame();
-//		f.setVisible(true);
+		XadrezFrame f	= new XadrezFrame(null);
+		f.setVisible(true);
 
 		casa.setX(1);
 		casa.setY(1);
