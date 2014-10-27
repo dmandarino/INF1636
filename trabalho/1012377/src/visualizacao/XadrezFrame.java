@@ -16,6 +16,16 @@ public class XadrezFrame extends JPanel {
 	
 	public XadrezFrame(Graphics g)
 	{
+//		http://www.java2s.com/Tutorial/Java/0261__2D-Graphics/DrawRectangle.htm
+//
+//			http://www.tutorialspoint.com/javaexamples/gui_solid.htm
+//
+//			http://stackoverflow.com/questions/9163999/draw-multiple-squares-in-a-java-
+//
+//			jframe-and-access-each-single-one-of-them
+//
+//			http://www.java-forums.org/java-awt/9320-how-draw-rectangle-java.html
+		
 		
 		g2d = (Graphics2D) g;
 		// Tamanho de cada casa, tanto em largura como em altura.
