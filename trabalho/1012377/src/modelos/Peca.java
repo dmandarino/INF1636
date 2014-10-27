@@ -1,9 +1,37 @@
 package modelos;
 
+import java.util.List;
+
 public class Peca {
 	
-	private Casa casa;
+	protected Casa casa;
 	private PecaEnum nome;
+	
+	public Casa andarPeca(Casa casaDestino){
+        switch (nome) {
+            case PEAO:
+                Peao p = new Peao();
+            	casa = p.andarPeca(casaDestino);
+                break;
+            case TORRE:
+                System.out.println("Segunda-feira");
+                break;
+            case CAVALO:
+                System.out.println("Terça-feira");
+                break;
+            case BISPO:
+                System.out.println("Quarta-feira");
+                break;
+            case RAINHA:
+                System.out.println("Quinta-feira");
+                break;
+            case REI:
+                System.out.println("Sexta-feira");
+                break;
+        }
+        return casa;
+	}
+	
 	
 	public PecaEnum getNome() {
 		return nome;
@@ -21,7 +49,4 @@ public class Peca {
 		this.casa = casa;
 	}
 
-	public void print(){
-		System.out.println("hello wolrd!");
-	}
 }
