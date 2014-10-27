@@ -1,17 +1,16 @@
 package modelos;
 
-import java.util.List;
 
 public class Peca {
 	
 	protected Casa casa;
-	private PecaEnum nome;
+	private PecaEnum nome;	
 	
 	public Casa andarPeca(Casa casaDestino){
         switch (nome) {
             case PEAO:
                 Peao p = new Peao();
-            	casa = p.andarPeca(casaDestino);
+            	casa = p.andarPeca(casa, casaDestino);
                 break;
             case TORRE:
                 System.out.println("Segunda-feira");
