@@ -62,18 +62,18 @@ public class XadrezPainel extends JPanel implements MouseListener
 		
 		if(painel == 0)
 		{
-			g.drawImage(bispo_branco, 100 ,100,null);
-			g.drawImage(cavalo_branco, 100 ,100,null);
-			g.drawImage(dama_branco,100,100,null);
-			g.drawImage(peao_branco,100 ,100,null);
-			g.drawImage(rei_branco,100,100,null);
-			g.drawImage(torre_branco,100,100,null);
+			g.drawImage(bispo_branco, 100 ,400,null);
+			g.drawImage(cavalo_branco, 50 ,400,null);
+			g.drawImage(dama_branco, 200,400,null);
+			g.drawImage(peao_branco,0 ,350,null);
+			g.drawImage(rei_branco,150,400,null);
+			g.drawImage(torre_branco,0,400,null);
 			
-			g.drawImage(bispo_preto,100 , 100,null);
-			g.drawImage(cavalo_preto, 100, 100,null);
-			g.drawImage(dama_preto,100 , 100,null);
-			g.drawImage(peao_preto,100 , 100,null);
-			g.drawImage(rei_preto, 100 , 100,null);
+			g.drawImage(bispo_preto,100 , 0,null);
+			g.drawImage(cavalo_preto, 50, 0,null);
+			g.drawImage(dama_preto,200 ,0 ,null);
+			g.drawImage(peao_preto,0 , 50,null);
+			g.drawImage(rei_preto, 150 , 0,null);
 			g.drawImage(torre_preto, 0 , 0,null);
 			
 			

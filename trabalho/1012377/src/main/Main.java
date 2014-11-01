@@ -2,6 +2,8 @@ package main;
 
 import java.awt.Graphics;
 
+import javax.swing.JFrame;
+
 import visualizacao.XadrezFrame;
 import modelos.Casa;
 import modelos.Peao;
@@ -17,19 +19,24 @@ public class Main
 		Peca peca = new Peca();
 		peca.setNome(PecaEnum.PEAO);
 		Casa casa = new Casa();
-		Casa casaDestino = new Casa();
+		//Casa casaDestino = new Casa();
 		
-		XadrezFrame f	= new XadrezFrame(null);
-		f.setVisible(true);
-
+		XadrezFrame rects = new XadrezFrame();
+        JFrame frame = new JFrame("Xadrez");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(rects);
+        frame.setSize(420, 440);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        
 		casa.setX(1);
 		casa.setY(1);
 		peca.setCasa(casa);
-		casaDestino.setX(1);
-		casaDestino.setY(2);
+//		casaDestino.setX(1);
+	//	casaDestino.setY(2);
 		
-		casa=peca.andarPeca(casaDestino);
-		System.out.println(casa.getX().toString() + ", " + casa.getY().toString());
+		//casa=peca.andarPeca(casaDestino);
+		//System.out.println(casa.getX().toString() + ", " + casa.getY().toString());
 	}
 
 }
