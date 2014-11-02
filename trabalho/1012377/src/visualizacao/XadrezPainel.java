@@ -320,41 +320,5 @@ public class XadrezPainel extends JPanel implements MouseListener
 		return pecas;
 	}
 	
-
-//	g.drawImage(torre_branco,10,360,null);
-//	g.drawImage(torre_branco,360,360,null);
-//	g.drawImage(cavalo_branco, 310 ,360,null);
-//	g.drawImage(cavalo_branco, 60 ,360,null);
-//	g.drawImage(bispo_branco, 260 ,360,null);
-//	g.drawImage(bispo_branco, 110 ,360,null);
-//	g.drawImage(dama_branco, 160,360,null);
-//	g.drawImage(rei_branco,210,360,null);
-//	g.drawImage(peao_branco,10 ,310,null);
-//	g.drawImage(peao_branco,60 ,310,null);
-//	g.drawImage(peao_branco,110 ,310,null);
-//	g.drawImage(peao_branco,160 ,310,null);
-//	g.drawImage(peao_branco,210 ,310,null);
-//	g.drawImage(peao_branco,260 ,310,null);
-//	g.drawImage(peao_branco,310 ,310,null);
-//	g.drawImage(peao_branco,360 ,310,null);
-//	
-//	g.drawImage(torre_preto, 360 , 10,null);
-//	g.drawImage(torre_preto, 10 , 10,null);
-//	g.drawImage(cavalo_preto, 310, 10,null);
-//	g.drawImage(cavalo_preto, 60, 10,null);
-//	g.drawImage(bispo_preto,260 , 10,null);
-//	g.drawImage(bispo_preto,110 , 10,null);
-//	g.drawImage(dama_preto,160 ,10 ,null);
-//	g.drawImage(rei_preto, 210 , 10,null);
-//	g.drawImage(peao_preto,10 , 60,null);
-//	g.drawImage(peao_preto,60 , 60,null);
-//	g.drawImage(peao_preto,110 , 60,null);
-//	g.drawImage(peao_preto,160 , 60,null);
-//	g.drawImage(peao_preto,210 , 60,null);
-//	g.drawImage(peao_preto,260 , 60,null);
-//	g.drawImage(peao_preto,310 , 60,null);
-//	g.drawImage(peao_preto,360 , 60,null);
-	
-	
 }
 
