@@ -42,15 +42,5 @@ public class XadrezFrame extends JPanel {
          }
          XadrezPainel p = new XadrezPainel();
          p.paintComponent(g2d);
-//	         Image img = null;
-//			try {
-//				img = ImageIO.read(new File("Pecas/b_peao.gif"));
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}//adicionei essa linha  
-//	         g2d.drawImage(img,10,10,null);
-//	         repaint();
-  // getRootPane().add(p); 	
  }
 }

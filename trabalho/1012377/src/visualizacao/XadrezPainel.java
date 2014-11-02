@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import modelos.Peca;
+import modelos.PecaEnum;
 
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
@@ -62,8 +63,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 
 	}
 	
-	if(painel == 0)
-	{
+	if(painel == 0)	{
 		carregaPecas(g);
 		g.drawImage(bispo_branco, 100 ,400,null);
 		g.drawImage(cavalo_branco, 50 ,400,null);
@@ -79,9 +79,33 @@ public class XadrezPainel extends JPanel implements MouseListener
 		g.drawImage(rei_preto, 150 , 0,null);
 		g.drawImage(torre_preto, 0 , 0,null);
 		
-		
 	}
 	
+	}
+	//@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	//@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	//@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	//@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	private void carregaPecas(Graphics g) {
 		iniciaPecasBrancas();
@@ -91,31 +115,42 @@ public class XadrezPainel extends JPanel implements MouseListener
 	private void iniciaPecasBrancas() {
 		List<Peca> pecasBrancas = new ArrayList<Peca>();
 		
+		instanciarPecas();
 	}
-	//@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 	
-	}
-	//@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	
-	}
-	//@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	
-	}
-	//@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	
-	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	private void instanciarPecas() {
+		Peca peao1 = new Peca();
+		peao1.setNome(PecaEnum.PEAO);
+		Peca peao2 = new Peca();
+		peao2.setNome(PecaEnum.PEAO);
+		Peca peao3 = new Peca();
+		peao3.setNome(PecaEnum.PEAO);
+		Peca peao4 = new Peca();
+		peao4.setNome(PecaEnum.PEAO);
+		Peca peao5 = new Peca();
+		peao5.setNome(PecaEnum.PEAO);
+		Peca peao6 = new Peca();
+		peao6.setNome(PecaEnum.PEAO);
+		Peca peao7 = new Peca();
+		peao7.setNome(PecaEnum.PEAO);
+		Peca peao8 = new Peca();
+		peao8.setNome(PecaEnum.PEAO);
+		Peca torre1 = new Peca();
+		torre1.setNome(PecaEnum.TORRE);
+		Peca torre2 = new Peca();
+		torre2.setNome(PecaEnum.TORRE);
+		Peca cavalo1 = new Peca();
+		cavalo1.setNome(PecaEnum.CAVALO);
+		Peca cavalo2 = new Peca();
+		cavalo2.setNome(PecaEnum.CAVALO);
+		Peca bispo1 = new Peca();
+		bispo1.setNome(PecaEnum.BISPO);
+		Peca bispo2 = new Peca();
+		bispo2.setNome(PecaEnum.BISPO);
+		Peca rainha = new Peca();
+		rainha.setNome(PecaEnum.RAINHA);
+		Peca rei = new Peca();
+		rei.setNome(PecaEnum.REI);
 	}
 }
 
