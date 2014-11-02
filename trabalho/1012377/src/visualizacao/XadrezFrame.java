@@ -1,16 +1,15 @@
 package visualizacao;
 
 import java.awt.*;
-
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 public class XadrezFrame extends JPanel {
 	 public void paintComponent(Graphics g) {
          super.paintComponent(g);
-         XadrezPainel p = new XadrezPainel(); 
          Graphics2D g2d = (Graphics2D) g;
          Boolean branco = true;
+         XadrezPainel p = new XadrezPainel();
          
          for (int x = 0; x < 400; x+=50)
          {
@@ -35,6 +34,8 @@ public class XadrezFrame extends JPanel {
         	 else
         		 branco = true;
          }
-  // getRootPane().add(p); 	
- }
+      System.out.print("Olá");
+      getRootPane().add(p);
+     
+  }
 }

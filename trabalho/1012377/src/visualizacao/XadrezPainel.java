@@ -58,7 +58,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 		{
 			System.out.println(e.getMessage());
 
-	}
+	}	
 		
 		if(painel == 0)
 		{
