@@ -4,7 +4,15 @@ public class Casa {
 
 	private Integer x;
 	private Integer y;
+	private Peca peca;
+	
 
+	public Peca getPeca() {
+		return peca;
+	}
+	public void setPeca(Peca peca) {
+		this.peca = peca;
+	}
 	public Integer getX() {
 		return x;
 	}

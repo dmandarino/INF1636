@@ -2,24 +2,28 @@ package visualizacao;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import modelos.Bispo;
+import modelos.Cavalo;
+import modelos.Peao;
 import modelos.Peca;
 import modelos.PecaEnum;
+import modelos.Rainha;
+import modelos.Rei;
+import modelos.Torre;
 
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
 {
-	
-	
 	public Peca peca = new Peca();
 	private Image	bispo_branco, 
 					cavalo_branco,
@@ -60,48 +64,12 @@ public class XadrezPainel extends JPanel implements MouseListener
 		catch(IOException e)
 		{
 			System.out.println(e.getMessage());
-
-	}
+		}
 	
-	if(painel == 0)	{
-		carregaPecas(g);
-
-		g.drawImage(torre_branco,10,360,null);
-		g.drawImage(torre_branco,360,360,null);
-		g.drawImage(cavalo_branco, 310 ,360,null);
-		g.drawImage(cavalo_branco, 60 ,360,null);
-		g.drawImage(bispo_branco, 260 ,360,null);
-		g.drawImage(bispo_branco, 110 ,360,null);
-		g.drawImage(dama_branco, 160,360,null);
-		g.drawImage(rei_branco,210,360,null);
-		g.drawImage(peao_branco,10 ,310,null);
-		g.drawImage(peao_branco,60 ,310,null);
-		g.drawImage(peao_branco,110 ,310,null);
-		g.drawImage(peao_branco,160 ,310,null);
-		g.drawImage(peao_branco,210 ,310,null);
-		g.drawImage(peao_branco,260 ,310,null);
-		g.drawImage(peao_branco,310 ,310,null);
-		g.drawImage(peao_branco,360 ,310,null);
-		
-		g.drawImage(torre_preto, 360 , 10,null);
-		g.drawImage(torre_preto, 10 , 10,null);
-		g.drawImage(cavalo_preto, 310, 10,null);
-		g.drawImage(cavalo_preto, 60, 10,null);
-		g.drawImage(bispo_preto,260 , 10,null);
-		g.drawImage(bispo_preto,110 , 10,null);
-		g.drawImage(dama_preto,160 ,10 ,null);
-		g.drawImage(rei_preto, 210 , 10,null);
-		g.drawImage(peao_preto,10 , 60,null);
-		g.drawImage(peao_preto,60 , 60,null);
-		g.drawImage(peao_preto,110 , 60,null);
-		g.drawImage(peao_preto,160 , 60,null);
-		g.drawImage(peao_preto,210 , 60,null);
-		g.drawImage(peao_preto,260 , 60,null);
-		g.drawImage(peao_preto,310 , 60,null);
-		g.drawImage(peao_preto,360 , 60,null);
-		
-		
-	}
+		if(painel == 0)	{
+			iniciaPecasBrancas(g);
+			iniciaPecasPretas(g);
+		}
 	
 	}
 	//@Override
@@ -129,50 +97,264 @@ public class XadrezPainel extends JPanel implements MouseListener
 		// TODO Auto-generated method stub
 		
 	}
-	private void carregaPecas(Graphics g) {
-		iniciaPecasBrancas();
-		// TODO Auto-generated method stub
+	
+	private void iniciaPecasBrancas(Graphics g) {
+		List<Peca> pecasBrancas = criarPecas();
 		
+		setPosInicialBranca(pecasBrancas);
+		
+		for (Peca peca : pecasBrancas) {
+			g.drawImage(peca.getFigura(),peca.getX(),peca.getY(),null);
+		}
 	}
-	private void iniciaPecasBrancas() {
-		List<Peca> pecasBrancas = new ArrayList<Peca>();
+
+	private void iniciaPecasPretas(Graphics g) {
+		List<Peca> pecasPretas = criarPecas();
 		
-		instanciarPecas();
+		setPosInicialPretas(pecasPretas);
+		
+		for (Peca peca : pecasPretas) {
+			g.drawImage(peca.getFigura(),peca.getX(),peca.getY(),null);
+		}
 	}
 	
-	private void instanciarPecas() {
-		Peca peao1 = new Peca();
-		peao1.setNome(PecaEnum.PEAO);
-		Peca peao2 = new Peca();
-		peao2.setNome(PecaEnum.PEAO);
-		Peca peao3 = new Peca();
-		peao3.setNome(PecaEnum.PEAO);
-		Peca peao4 = new Peca();
-		peao4.setNome(PecaEnum.PEAO);
-		Peca peao5 = new Peca();
-		peao5.setNome(PecaEnum.PEAO);
-		Peca peao6 = new Peca();
-		peao6.setNome(PecaEnum.PEAO);
-		Peca peao7 = new Peca();
-		peao7.setNome(PecaEnum.PEAO);
-		Peca peao8 = new Peca();
-		peao8.setNome(PecaEnum.PEAO);
-		Peca torre1 = new Peca();
-		torre1.setNome(PecaEnum.TORRE);
-		Peca torre2 = new Peca();
-		torre2.setNome(PecaEnum.TORRE);
-		Peca cavalo1 = new Peca();
-		cavalo1.setNome(PecaEnum.CAVALO);
-		Peca cavalo2 = new Peca();
-		cavalo2.setNome(PecaEnum.CAVALO);
-		Peca bispo1 = new Peca();
-		bispo1.setNome(PecaEnum.BISPO);
-		Peca bispo2 = new Peca();
-		bispo2.setNome(PecaEnum.BISPO);
-		Peca rainha = new Peca();
-		rainha.setNome(PecaEnum.RAINHA);
-		Peca rei = new Peca();
-		rei.setNome(PecaEnum.REI);
+	private void setPosInicialBranca(List<Peca> pecasBrancas) {
+		for (Peca peca : pecasBrancas) {
+			PecaEnum tipo = peca.getTipo();
+			peca.setY(360);
+			switch (tipo) {
+			 case PEAO:
+				 	peca.setFigura(peao_branco);
+				    peca.setY(310);
+				 	if(peca.getNome() == "peao1")
+				 		peca.setX(10);
+				 	else if(peca.getNome() == "peao2")
+				 		peca.setX(60);
+				 	else if(peca.getNome() == "peao3")
+				 		peca.setX(110);
+				 	else if(peca.getNome() == "peao4")
+				 		peca.setX(160);
+				 	else if(peca.getNome() == "peao5")
+				 		peca.setX(210);
+				 	else if(peca.getNome() == "peao6")
+				 		peca.setX(260);
+				 	else if(peca.getNome() == "peao7")
+				 		peca.setX(310);
+				 	else if(peca.getNome() == "peao8")
+				 		peca.setX(360);
+	                break;
+	            case TORRE:
+	            	peca.setFigura(torre_branco);
+	            	if(peca.getNome() == "torre1")
+	            		peca.setX(10);
+	            	else if(peca.getNome() == "torre2")
+				 		peca.setX(360);
+	                break;
+	            case CAVALO:
+	            	peca.setFigura(cavalo_branco);
+	            	if(peca.getNome() == "cavalo1")
+	            		peca.setX(60);
+	            	else if(peca.getNome() == "cavalo2")
+				 		peca.setX(310);
+	            	break;
+	            case BISPO:
+	            	peca.setFigura(bispo_branco);
+	            	if(peca.getNome() == "bispo1")
+	            		peca.setX(110);
+	            	else if(peca.getNome() == "bispo2")
+				 		peca.setX(260);
+	            	break;
+	            case RAINHA:
+	            	peca.setFigura(dama_branco);
+	            	peca.setX(160);
+	            	break;
+	            case REI:
+	            	peca.setFigura(rei_branco);
+	            	peca.setX(210);
+	            	break;
+			}
+		}
 	}
+	
+	private void setPosInicialPretas(List<Peca> pecasPretas) {
+		for (Peca peca : pecasPretas) {
+			PecaEnum tipo = peca.getTipo();
+			peca.setY(10);
+			switch (tipo) {
+			 case PEAO:
+				 	peca.setFigura(peao_preto);
+				    peca.setY(60);
+				 	if(peca.getNome() == "peao1")
+				 		peca.setX(10);
+				 	else if(peca.getNome() == "peao2")
+				 		peca.setX(60);
+				 	else if(peca.getNome() == "peao3")
+				 		peca.setX(110);
+				 	else if(peca.getNome() == "peao4")
+				 		peca.setX(160);
+				 	else if(peca.getNome() == "peao5")
+				 		peca.setX(210);
+				 	else if(peca.getNome() == "peao6")
+				 		peca.setX(260);
+				 	else if(peca.getNome() == "peao7")
+				 		peca.setX(310);
+				 	else if(peca.getNome() == "peao8")
+				 		peca.setX(360);
+	                break;
+	            case TORRE:
+	            	peca.setFigura(torre_preto);
+	            	if(peca.getNome() == "torre1")
+	            		peca.setX(10);
+	            	else if(peca.getNome() == "torre2")
+				 		peca.setX(360);
+	                break;
+	            case CAVALO:
+	            	peca.setFigura(cavalo_preto);
+	            	if(peca.getNome() == "cavalo1")
+	            		peca.setX(60);
+	            	else if(peca.getNome() == "cavalo2")
+				 		peca.setX(310);
+	            	break;
+	            case BISPO:
+	            	peca.setFigura(bispo_preto);
+	            	if(peca.getNome() == "bispo1")
+	            		peca.setX(110);
+	            	else if(peca.getNome() == "bispo2")
+				 		peca.setX(260);
+	            	break;
+	            case RAINHA:
+	            	peca.setFigura(dama_preto);
+	            	peca.setX(160);
+	            	break;
+	            case REI:
+	            	peca.setFigura(rei_preto);
+	            	peca.setX(210);
+	            	break;
+			}
+		}
+	}
+	
+	private List<Peca> criarPecas() {
+		List<Peca> pecas = new ArrayList<Peca>();
+	
+		Peao peao1 = new Peao();
+		peao1.setTipo(PecaEnum.PEAO);
+		peao1.setNome("peao1");
+		pecas.add(peao1);
+		
+		Peao peao2 = new Peao();
+		peao2.setTipo(PecaEnum.PEAO);
+		peao2.setNome("peao2");
+		pecas.add(peao2);
+		
+		Peao peao3 = new Peao();
+		peao3.setTipo(PecaEnum.PEAO);
+		peao3.setNome("peao3");
+		pecas.add(peao3);
+		
+		Peao peao4 = new Peao();
+		peao4.setTipo(PecaEnum.PEAO);
+		peao4.setNome("peao4");
+		pecas.add(peao4);
+		
+		Peao peao5 = new Peao();
+		peao5.setTipo(PecaEnum.PEAO);
+		peao5.setNome("peao5");
+		pecas.add(peao5);
+		
+		Peao peao6 = new Peao();
+		peao6.setTipo(PecaEnum.PEAO);
+		peao6.setNome("peao6");
+		pecas.add(peao6);
+		
+		Peao peao7 = new Peao();
+		peao7.setTipo(PecaEnum.PEAO);
+		peao7.setNome("peao7");
+		pecas.add(peao7);
+		
+		Peao peao8 = new Peao();
+		peao8.setTipo(PecaEnum.PEAO);
+		peao8.setNome("peao8");
+		pecas.add(peao8);
+		
+		Torre torre1 = new Torre();
+		torre1.setTipo(PecaEnum.TORRE);
+		torre1.setNome("torre1");
+		pecas.add(torre1);
+		
+		Torre torre2 = new Torre();
+		torre2.setTipo(PecaEnum.TORRE);
+		torre2.setNome("torre2");
+		pecas.add(torre2);
+		
+		Cavalo cavalo1 = new Cavalo();
+		cavalo1.setTipo(PecaEnum.CAVALO);
+		cavalo1.setNome("cavalo1");
+		pecas.add(cavalo1);
+		
+		Cavalo cavalo2 = new Cavalo();
+		cavalo2.setTipo(PecaEnum.CAVALO);
+		cavalo2.setNome("cavalo2");
+		pecas.add(cavalo2);
+		
+		Bispo bispo1 = new Bispo();
+		bispo1.setTipo(PecaEnum.BISPO);
+		bispo1.setNome("bispo1");
+		pecas.add(bispo1);
+		
+		Bispo bispo2 = new Bispo();
+		bispo2.setTipo(PecaEnum.BISPO);
+		bispo2.setNome("bispo2");
+		pecas.add(bispo2);
+		
+		Rainha rainha = new Rainha();
+		rainha.setTipo(PecaEnum.RAINHA);
+		rainha.setNome("rainha");
+		pecas.add(rainha);
+		
+		Rei rei = new Rei();
+		rei.setTipo(PecaEnum.REI);
+		rei.setNome("rei");
+		pecas.add(rei);
+		
+		return pecas;
+	}
+	
+
+//	g.drawImage(torre_branco,10,360,null);
+//	g.drawImage(torre_branco,360,360,null);
+//	g.drawImage(cavalo_branco, 310 ,360,null);
+//	g.drawImage(cavalo_branco, 60 ,360,null);
+//	g.drawImage(bispo_branco, 260 ,360,null);
+//	g.drawImage(bispo_branco, 110 ,360,null);
+//	g.drawImage(dama_branco, 160,360,null);
+//	g.drawImage(rei_branco,210,360,null);
+//	g.drawImage(peao_branco,10 ,310,null);
+//	g.drawImage(peao_branco,60 ,310,null);
+//	g.drawImage(peao_branco,110 ,310,null);
+//	g.drawImage(peao_branco,160 ,310,null);
+//	g.drawImage(peao_branco,210 ,310,null);
+//	g.drawImage(peao_branco,260 ,310,null);
+//	g.drawImage(peao_branco,310 ,310,null);
+//	g.drawImage(peao_branco,360 ,310,null);
+//	
+//	g.drawImage(torre_preto, 360 , 10,null);
+//	g.drawImage(torre_preto, 10 , 10,null);
+//	g.drawImage(cavalo_preto, 310, 10,null);
+//	g.drawImage(cavalo_preto, 60, 10,null);
+//	g.drawImage(bispo_preto,260 , 10,null);
+//	g.drawImage(bispo_preto,110 , 10,null);
+//	g.drawImage(dama_preto,160 ,10 ,null);
+//	g.drawImage(rei_preto, 210 , 10,null);
+//	g.drawImage(peao_preto,10 , 60,null);
+//	g.drawImage(peao_preto,60 , 60,null);
+//	g.drawImage(peao_preto,110 , 60,null);
+//	g.drawImage(peao_preto,160 , 60,null);
+//	g.drawImage(peao_preto,210 , 60,null);
+//	g.drawImage(peao_preto,260 , 60,null);
+//	g.drawImage(peao_preto,310 , 60,null);
+//	g.drawImage(peao_preto,360 , 60,null);
+	
+	
 }
 

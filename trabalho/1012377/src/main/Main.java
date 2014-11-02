@@ -17,7 +17,7 @@ public class Main
 	{
 		// TODO Auto-generated method stub
 		Peca peca = new Peca();
-		peca.setNome(PecaEnum.PEAO);
+//		peca.setNome(PecaEnum.PEAO);
 		Casa casa = new Casa();
 		//Casa casaDestino = new Casa();
 		

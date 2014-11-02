@@ -1,11 +1,11 @@
 package modelos;
 
 
-public class Peao extends Peca{
+public class Rainha extends Peca{
 
 	private Boolean primeiroMovimento = true;
 	
-	public Peao (){
+	public Rainha (){
 		super();
 	}
 	

@@ -1,13 +1,19 @@
 package modelos;
 
+import java.awt.Image;
+
 
 public class Peca {
 	
 	protected Casa casa;
-	private PecaEnum nome;	
+	private PecaEnum tipo;
+	private String nome;
+	private Integer x;
+	private Integer y;
+	private Image figura;
 	
 	public Casa andarPeca(Casa casaDestino){
-        switch (nome) {
+        switch (tipo) {
             case PEAO:
                 Peao p = new Peao();
             	casa = p.andarPeca(casa, casaDestino);
@@ -30,15 +36,18 @@ public class Peca {
         }
         return casa;
 	}
+
 	
-	
-	public PecaEnum getNome() {
-		return nome;
+	public Image getFigura() {
+		return figura;
 	}
 
-	public void setNome(PecaEnum nome) {
-		this.nome = nome;
+	public void setFigura(Image figura) {
+		this.figura = figura;
 	}
+
+
+
 
 	public Casa getCasa() {
 		return casa;
@@ -48,4 +57,36 @@ public class Peca {
 		this.casa = casa;
 	}
 
+	public PecaEnum getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(PecaEnum tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Integer getX() {
+		return x;
+	}
+
+	public void setX(Integer x) {
+		this.x = x;
+	}
+
+	public Integer getY() {
+		return y;
+	}
+
+	public void setY(Integer y) {
+		this.y = y;
+	}
+	
 }
