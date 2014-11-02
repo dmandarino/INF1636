@@ -1,7 +1,19 @@
 package visualizacao;
 
+<<<<<<< HEAD
 import java.awt.*;
 import javax.swing.*;
+=======
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+>>>>>>> origin/master
 
 
 public class XadrezFrame extends JPanel {
@@ -34,8 +46,24 @@ public class XadrezFrame extends JPanel {
         	 else
         		 branco = true;
          }
+<<<<<<< HEAD
       System.out.print("Olá");
       getRootPane().add(p);
      
   }
+=======
+         XadrezPainel p = new XadrezPainel();
+         p.paintComponent(g2d);
+//	         Image img = null;
+//			try {
+//				img = ImageIO.read(new File("Pecas/b_peao.gif"));
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}//adicionei essa linha  
+//	         g2d.drawImage(img,10,10,null);
+//	         repaint();
+  // getRootPane().add(p); 	
+ }
+>>>>>>> origin/master
 }
