@@ -7,16 +7,13 @@ public class Peca {
 	
 	protected Casa casa;
 	private PecaEnum tipo;
-	private String nome;
-	private Integer x;
-	private Integer y;
 	private Image figura;
 	
 	public Casa andarPeca(Casa casaDestino){
         switch (tipo) {
             case PEAO:
                 Peao p = new Peao();
-            	casa = p.andarPeca(casa, casaDestino);
+//            	casa = p.andarPeca(casa, casaDestino);
                 break;
             case TORRE:
                 System.out.println("Segunda-feira");
@@ -46,9 +43,6 @@ public class Peca {
 		this.figura = figura;
 	}
 
-
-
-
 	public Casa getCasa() {
 		return casa;
 	}
@@ -65,28 +59,4 @@ public class Peca {
 		this.tipo = tipo;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public Integer getX() {
-		return x;
-	}
-
-	public void setX(Integer x) {
-		this.x = x;
-	}
-
-	public Integer getY() {
-		return y;
-	}
-
-	public void setY(Integer y) {
-		this.y = y;
-	}
-	
 }

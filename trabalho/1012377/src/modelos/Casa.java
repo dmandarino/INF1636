@@ -2,11 +2,17 @@ package modelos;
 
 public class Casa {
 
+	private Integer numCasa;
+	private Peca peca;
 	private Integer x;
 	private Integer y;
-	private Peca peca;
 	
-
+	public Integer getNumCasa() {
+		return numCasa;
+	}
+	public void setNumCasa(Integer numCasa) {
+		this.numCasa = numCasa;
+	}
 	public Peca getPeca() {
 		return peca;
 	}
@@ -25,5 +31,4 @@ public class Casa {
 	public void setY(Integer y) {
 		this.y = y;
 	}
-	
 }

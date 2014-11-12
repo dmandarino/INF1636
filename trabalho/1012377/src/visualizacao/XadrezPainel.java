@@ -7,12 +7,14 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import modelos.Bispo;
+import modelos.Casa;
 import modelos.Cavalo;
 import modelos.Peao;
 import modelos.Peca;
@@ -24,6 +26,17 @@ import modelos.Torre;
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
 {
+	private static final int NUM_CASAS_X = 8;
+	private static final int NUM_CASAS_Y = 8;
+	private static final int DIMEN = 50;
+	private static final int NUM_PEAO = 8;
+	private static final int NUM_PECAS_NAO_REAIS = 2;
+	private static final int PIXEL_INI = 10;
+	private HashMap<Integer, Casa> casas = new HashMap<Integer, Casa>();
+	private List<Peca> pecasBrancas = new ArrayList<Peca>();
+	private List<Peca> pecasPretas = new ArrayList<Peca>();
+	
+	
 	public Peca peca = new Peca();
 	private Image	bispo_branco, 
 					cavalo_branco,
@@ -67,11 +80,12 @@ public class XadrezPainel extends JPanel implements MouseListener
 		}
 	
 		if(painel == 0)	{
-			iniciaPecasBrancas(g);
-			iniciaPecasPretas(g);
+			criarCasas();
+			iniciarPecas(g);
 		}
 	
 	}
+	
 	//@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -97,228 +111,172 @@ public class XadrezPainel extends JPanel implements MouseListener
 		// TODO Auto-generated method stub
 		
 	}
+
+	private void criarCasas() {
+		int cont = 0;
+		for (int i = 0; i < NUM_CASAS_X; i++) {
+ 			for (int j = 0; j < NUM_CASAS_Y; j++) {
+ 				Casa c = new Casa();
+				c.setNumCasa(cont);
+				c.setY(PIXEL_INI + i*DIMEN);
+				c.setX(PIXEL_INI + j*DIMEN);
+//				System.out.println(c.getNumCasa().toString() + "   " + c.getX().toString() + "   " + c.getY().toString());
+				cont ++;
+				casas.put(cont, c);
+ 			}
+		}
+	}
 	
-	private void iniciaPecasBrancas(Graphics g) {
-		List<Peca> pecasBrancas = criarPecas();
+	private void iniciarPecas(Graphics g) {
 		
-		setPosInicialBranca(pecasBrancas);
+		pecasBrancas = criarPecas(true, casas);
+		pecasPretas = criarPecas(false, casas);
+		
 		
 		for (Peca peca : pecasBrancas) {
-			g.drawImage(peca.getFigura(),peca.getX(),peca.getY(),null);
+			g.drawImage(peca.getFigura(),peca.getCasa().getX(),peca.getCasa().getY(),null);
 		}
+		
+		for (Peca peca : pecasPretas) {
+			g.drawImage(peca.getFigura(),peca.getCasa().getX(),peca.getCasa().getY(),null);
+		}
+		
 	}
 
-	private void iniciaPecasPretas(Graphics g) {
-		List<Peca> pecasPretas = criarPecas();
-		
-		setPosInicialPretas(pecasPretas);
-		
-		for (Peca peca : pecasPretas) {
-			g.drawImage(peca.getFigura(),peca.getX(),peca.getY(),null);
-		}
-	}
-	
-	private void setPosInicialBranca(List<Peca> pecasBrancas) {
-		for (Peca peca : pecasBrancas) {
-			PecaEnum tipo = peca.getTipo();
-			peca.setY(360);
-			switch (tipo) {
-			 case PEAO:
-				 	peca.setFigura(peao_branco);
-				    peca.setY(310);
-				 	if(peca.getNome() == "peao1")
-				 		peca.setX(10);
-				 	else if(peca.getNome() == "peao2")
-				 		peca.setX(60);
-				 	else if(peca.getNome() == "peao3")
-				 		peca.setX(110);
-				 	else if(peca.getNome() == "peao4")
-				 		peca.setX(160);
-				 	else if(peca.getNome() == "peao5")
-				 		peca.setX(210);
-				 	else if(peca.getNome() == "peao6")
-				 		peca.setX(260);
-				 	else if(peca.getNome() == "peao7")
-				 		peca.setX(310);
-				 	else if(peca.getNome() == "peao8")
-				 		peca.setX(360);
-	                break;
-	            case TORRE:
-	            	peca.setFigura(torre_branco);
-	            	if(peca.getNome() == "torre1")
-	            		peca.setX(10);
-	            	else if(peca.getNome() == "torre2")
-				 		peca.setX(360);
-	                break;
-	            case CAVALO:
-	            	peca.setFigura(cavalo_branco);
-	            	if(peca.getNome() == "cavalo1")
-	            		peca.setX(60);
-	            	else if(peca.getNome() == "cavalo2")
-				 		peca.setX(310);
-	            	break;
-	            case BISPO:
-	            	peca.setFigura(bispo_branco);
-	            	if(peca.getNome() == "bispo1")
-	            		peca.setX(110);
-	            	else if(peca.getNome() == "bispo2")
-				 		peca.setX(260);
-	            	break;
-	            case RAINHA:
-	            	peca.setFigura(dama_branco);
-	            	peca.setX(160);
-	            	break;
-	            case REI:
-	            	peca.setFigura(rei_branco);
-	            	peca.setX(210);
-	            	break;
-			}
-		}
-	}
-	
-	private void setPosInicialPretas(List<Peca> pecasPretas) {
-		for (Peca peca : pecasPretas) {
-			PecaEnum tipo = peca.getTipo();
-			peca.setY(10);
-			switch (tipo) {
-			 case PEAO:
-				 	peca.setFigura(peao_preto);
-				    peca.setY(60);
-				 	if(peca.getNome() == "peao1")
-				 		peca.setX(10);
-				 	else if(peca.getNome() == "peao2")
-				 		peca.setX(60);
-				 	else if(peca.getNome() == "peao3")
-				 		peca.setX(110);
-				 	else if(peca.getNome() == "peao4")
-				 		peca.setX(160);
-				 	else if(peca.getNome() == "peao5")
-				 		peca.setX(210);
-				 	else if(peca.getNome() == "peao6")
-				 		peca.setX(260);
-				 	else if(peca.getNome() == "peao7")
-				 		peca.setX(310);
-				 	else if(peca.getNome() == "peao8")
-				 		peca.setX(360);
-	                break;
-	            case TORRE:
-	            	peca.setFigura(torre_preto);
-	            	if(peca.getNome() == "torre1")
-	            		peca.setX(10);
-	            	else if(peca.getNome() == "torre2")
-				 		peca.setX(360);
-	                break;
-	            case CAVALO:
-	            	peca.setFigura(cavalo_preto);
-	            	if(peca.getNome() == "cavalo1")
-	            		peca.setX(60);
-	            	else if(peca.getNome() == "cavalo2")
-				 		peca.setX(310);
-	            	break;
-	            case BISPO:
-	            	peca.setFigura(bispo_preto);
-	            	if(peca.getNome() == "bispo1")
-	            		peca.setX(110);
-	            	else if(peca.getNome() == "bispo2")
-				 		peca.setX(260);
-	            	break;
-	            case RAINHA:
-	            	peca.setFigura(dama_preto);
-	            	peca.setX(160);
-	            	break;
-	            case REI:
-	            	peca.setFigura(rei_preto);
-	            	peca.setX(210);
-	            	break;
-			}
-		}
-	}
-	
-	private List<Peca> criarPecas() {
+	private List<Peca> criarPecas(boolean isBranca, HashMap<Integer, Casa> casas) {
 		List<Peca> pecas = new ArrayList<Peca>();
-	
-		Peao peao1 = new Peao();
-		peao1.setTipo(PecaEnum.PEAO);
-		peao1.setNome("peao1");
-		pecas.add(peao1);
+		int cont = 0;
+		boolean isPrimeiro = true;
+		for (int i = 0; i < NUM_PEAO; i++) {
+			Peao p = new Peao();
+			p.setTipo(PecaEnum.PEAO);
+			if(isBranca){
+				p.setFigura(peao_branco);
+				p.setCasa(casas.get(49 + cont));
+				casas.get(49 + cont).setPeca(p);
+			} else {
+				p.setFigura(peao_preto);
+				p.setCasa(casas.get(9 + cont));
+				casas.get(9 + cont).setPeca(p);
+			}
+			pecas.add(p);
+			cont ++;
+		}
 		
-		Peao peao2 = new Peao();
-		peao2.setTipo(PecaEnum.PEAO);
-		peao2.setNome("peao2");
-		pecas.add(peao2);
+		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
+			Torre t = new Torre();
+			t.setTipo(PecaEnum.TORRE);
+			if(isBranca){
+				t.setFigura(torre_branco);
+				if(isPrimeiro){
+					t.setCasa(casas.get(57));
+					casas.get(57).setPeca(t);
+					isPrimeiro = false;
+				} else {
+					t.setCasa(casas.get(64));
+					casas.get(64).setPeca(t);
+					isPrimeiro = true;
+				}
+			} else {
+				t.setFigura(torre_preto);
+				if(isPrimeiro){
+					t.setCasa(casas.get(1));
+					casas.get(1).setPeca(t);
+					isPrimeiro = false;
+				} else {
+					t.setCasa(casas.get(8));
+					casas.get(8).setPeca(t);
+					isPrimeiro = true;
+				}
+			}
+			pecas.add(t);
+		}
 		
-		Peao peao3 = new Peao();
-		peao3.setTipo(PecaEnum.PEAO);
-		peao3.setNome("peao3");
-		pecas.add(peao3);
+		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
+			Cavalo c = new Cavalo();
+			c.setTipo(PecaEnum.CAVALO);
+			if(isBranca){
+				c.setFigura(cavalo_branco);
+				if(isPrimeiro){
+					c.setCasa(casas.get(58));
+					casas.get(58).setPeca(c);
+					isPrimeiro = false;
+				} else {
+					c.setCasa(casas.get(63));
+					casas.get(63).setPeca(c);
+					isPrimeiro = true;
+				}
+			} else {
+				c.setFigura(cavalo_preto);
+				if(isPrimeiro){
+					c.setCasa(casas.get(2));
+					casas.get(2).setPeca(c);
+					isPrimeiro = false;
+				} else {
+					c.setCasa(casas.get(7));
+					casas.get(7).setPeca(c);
+					isPrimeiro = true;
+				}
+			}
+			pecas.add(c);
+		}
 		
-		Peao peao4 = new Peao();
-		peao4.setTipo(PecaEnum.PEAO);
-		peao4.setNome("peao4");
-		pecas.add(peao4);
-		
-		Peao peao5 = new Peao();
-		peao5.setTipo(PecaEnum.PEAO);
-		peao5.setNome("peao5");
-		pecas.add(peao5);
-		
-		Peao peao6 = new Peao();
-		peao6.setTipo(PecaEnum.PEAO);
-		peao6.setNome("peao6");
-		pecas.add(peao6);
-		
-		Peao peao7 = new Peao();
-		peao7.setTipo(PecaEnum.PEAO);
-		peao7.setNome("peao7");
-		pecas.add(peao7);
-		
-		Peao peao8 = new Peao();
-		peao8.setTipo(PecaEnum.PEAO);
-		peao8.setNome("peao8");
-		pecas.add(peao8);
-		
-		Torre torre1 = new Torre();
-		torre1.setTipo(PecaEnum.TORRE);
-		torre1.setNome("torre1");
-		pecas.add(torre1);
-		
-		Torre torre2 = new Torre();
-		torre2.setTipo(PecaEnum.TORRE);
-		torre2.setNome("torre2");
-		pecas.add(torre2);
-		
-		Cavalo cavalo1 = new Cavalo();
-		cavalo1.setTipo(PecaEnum.CAVALO);
-		cavalo1.setNome("cavalo1");
-		pecas.add(cavalo1);
-		
-		Cavalo cavalo2 = new Cavalo();
-		cavalo2.setTipo(PecaEnum.CAVALO);
-		cavalo2.setNome("cavalo2");
-		pecas.add(cavalo2);
-		
-		Bispo bispo1 = new Bispo();
-		bispo1.setTipo(PecaEnum.BISPO);
-		bispo1.setNome("bispo1");
-		pecas.add(bispo1);
-		
-		Bispo bispo2 = new Bispo();
-		bispo2.setTipo(PecaEnum.BISPO);
-		bispo2.setNome("bispo2");
-		pecas.add(bispo2);
+		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
+			Bispo b = new Bispo();
+			b.setTipo(PecaEnum.BISPO);
+			if(isBranca){
+				b.setFigura(bispo_branco);
+				if(isPrimeiro){
+					b.setCasa(casas.get(59));
+					casas.get(59).setPeca(b);
+					isPrimeiro = false;
+				} else {
+					b.setCasa(casas.get(62));
+					casas.get(62).setPeca(b);
+					isPrimeiro = true;
+				}
+			} else {
+				b.setFigura(bispo_preto);
+				if(isPrimeiro){
+					b.setCasa(casas.get(3));
+					casas.get(3).setPeca(b);
+					isPrimeiro = false;
+				} else {
+					b.setCasa(casas.get(6));
+					casas.get(6).setPeca(b);
+					isPrimeiro = true;
+				}
+			}
+			pecas.add(b);
+		}
 		
 		Rainha rainha = new Rainha();
 		rainha.setTipo(PecaEnum.RAINHA);
-		rainha.setNome("rainha");
+		if(isBranca){
+			rainha.setFigura(dama_branco);
+			rainha.setCasa(casas.get(60));
+			casas.get(60).setPeca(rainha);
+		} else {
+			rainha.setFigura(dama_preto);
+			rainha.setCasa(casas.get(4));
+			casas.get(4).setPeca(rainha);
+		}
 		pecas.add(rainha);
 		
 		Rei rei = new Rei();
 		rei.setTipo(PecaEnum.REI);
-		rei.setNome("rei");
+		if(isBranca){
+			rei.setFigura(rei_branco);
+			rei.setCasa(casas.get(61));
+			casas.get(61).setPeca(rei);
+		} else {
+			rei.setFigura(rei_preto);
+			rei.setCasa(casas.get(5));
+			casas.get(5).setPeca(rei);
+		}
 		pecas.add(rei);
 		
 		return pecas;
 	}
-	
 }
 

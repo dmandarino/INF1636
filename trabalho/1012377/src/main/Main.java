@@ -29,8 +29,6 @@ public class Main
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
-		casa.setX(1);
-		casa.setY(1);
 		peca.setCasa(casa);
 //		casaDestino.setX(1);
 	//	casaDestino.setY(2);
