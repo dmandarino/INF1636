@@ -150,6 +150,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 		for (int i = 0; i < NUM_PEAO; i++) {
 			Peao p = new Peao();
 			p.setTipo(PecaEnum.PEAO);
+			p.setBranco(isBranca);
 			if(isBranca){
 				p.setFigura(peao_branco);
 				p.setCasa(casas.get(49 + cont));
@@ -166,6 +167,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
 			Torre t = new Torre();
 			t.setTipo(PecaEnum.TORRE);
+			t.setBranco(isBranca);
 			if(isBranca){
 				t.setFigura(torre_branco);
 				if(isPrimeiro){
@@ -195,6 +197,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
 			Cavalo c = new Cavalo();
 			c.setTipo(PecaEnum.CAVALO);
+			c.setBranco(isBranca);
 			if(isBranca){
 				c.setFigura(cavalo_branco);
 				if(isPrimeiro){
@@ -224,6 +227,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
 			Bispo b = new Bispo();
 			b.setTipo(PecaEnum.BISPO);
+			b.setBranco(isBranca);
 			if(isBranca){
 				b.setFigura(bispo_branco);
 				if(isPrimeiro){
@@ -252,6 +256,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 		
 		Rainha rainha = new Rainha();
 		rainha.setTipo(PecaEnum.RAINHA);
+		rainha.setBranco(isBranca);
 		if(isBranca){
 			rainha.setFigura(dama_branco);
 			rainha.setCasa(casas.get(60));
@@ -265,6 +270,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 		
 		Rei rei = new Rei();
 		rei.setTipo(PecaEnum.REI);
+		rei.setBranco(isBranca);
 		if(isBranca){
 			rei.setFigura(rei_branco);
 			rei.setCasa(casas.get(61));

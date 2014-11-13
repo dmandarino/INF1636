@@ -8,33 +8,17 @@ public class Peca {
 	protected Casa casa;
 	private PecaEnum tipo;
 	private Image figura;
+	private Boolean isBranco;
 	
-	public Casa andarPeca(Casa casaDestino){
-        switch (tipo) {
-            case PEAO:
-                Peao p = new Peao();
-//            	casa = p.andarPeca(casa, casaDestino);
-                break;
-            case TORRE:
-                System.out.println("Segunda-feira");
-                break;
-            case CAVALO:
-                System.out.println("Terça-feira");
-                break;
-            case BISPO:
-                System.out.println("Quarta-feira");
-                break;
-            case RAINHA:
-                System.out.println("Quinta-feira");
-                break;
-            case REI:
-                System.out.println("Sexta-feira");
-                break;
-        }
-        return casa;
+
+	public Boolean isBranco() {
+		return isBranco;
 	}
 
-	
+	public void setBranco(Boolean isBranco) {
+		this.isBranco = isBranco;
+	}
+
 	public Image getFigura() {
 		return figura;
 	}
