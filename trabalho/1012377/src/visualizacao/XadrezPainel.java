@@ -23,7 +23,7 @@ import modelos.Rainha;
 import modelos.Rei;
 import modelos.Torre;
 import service.Movimento;
-import service.MovimentoTorre;
+import service.MovimentoPeao;
 
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
@@ -88,7 +88,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 		}
 
 		
-//		=======================   TESTANDO O MOVIMENTO DE UMA PECA  =========================
+//		=======================   TESTANDO O MOVIMENTO DE UMA TORRE  =========================
 //		
 //		
 //		
@@ -97,7 +97,18 @@ public class XadrezPainel extends JPanel implements MouseListener
 //        mov.andar(pecasBrancas.get(8), casas.get(49), casas);
 //
 //        desenhaPecas(g);
+//
+//		=======================   TESTANDO O MOVIMENTO DE UMA PEAO  =========================
+//		
+//		
+//		
+//		System.out.println(pecasBrancas.get(0).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//        Movimento mov= new MovimentoPeao();
+//        mov.andar(pecasBrancas.get(0), casas.get(41), casas);
+//
+//        desenhaPecas(g);
 //	
+
 	}
 	
 	//@Override
