@@ -22,6 +22,8 @@ import modelos.PecaEnum;
 import modelos.Rainha;
 import modelos.Rei;
 import modelos.Torre;
+import service.Movimento;
+import service.MovimentoTorre;
 
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
@@ -78,12 +80,24 @@ public class XadrezPainel extends JPanel implements MouseListener
 		{
 			System.out.println(e.getMessage());
 		}
-	
+		
 		if(painel == 0)	{
 			criarCasas();
 			iniciarPecas(g);
+			desenhaPecas(g);
 		}
-	
+
+		
+//		=======================   TESTANDO O MOVIMENTO DE UMA PECA  =========================
+//		
+//		
+//		
+//		System.out.println(pecasBrancas.get(8).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(49).getNumCasa().toString());
+//        Movimento mov= new MovimentoTorre();
+//        mov.andar(pecasBrancas.get(8), casas.get(49), casas);
+//
+//        desenhaPecas(g);
+//	
 	}
 	
 	//@Override
@@ -120,7 +134,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 				c.setNumCasa(cont);
 				c.setY(PIXEL_INI + i*DIMEN);
 				c.setX(PIXEL_INI + j*DIMEN);
-//				System.out.println(c.getNumCasa().toString() + "   " + c.getX().toString() + "   " + c.getY().toString());
+				System.out.println(c.getNumCasa().toString() + "  X= " + c.getX().toString() + "  Y= " + c.getY().toString());
 				cont ++;
 				casas.put(cont, c);
  			}
@@ -128,19 +142,17 @@ public class XadrezPainel extends JPanel implements MouseListener
 	}
 	
 	private void iniciarPecas(Graphics g) {
-		
 		pecasBrancas = criarPecas(true, casas);
 		pecasPretas = criarPecas(false, casas);
-		
-		
+	}
+
+	private void desenhaPecas(Graphics g) {
 		for (Peca peca : pecasBrancas) {
 			g.drawImage(peca.getFigura(),peca.getCasa().getX(),peca.getCasa().getY(),null);
 		}
-		
 		for (Peca peca : pecasPretas) {
 			g.drawImage(peca.getFigura(),peca.getCasa().getX(),peca.getCasa().getY(),null);
 		}
-		
 	}
 
 	private List<Peca> criarPecas(boolean isBranca, HashMap<Integer, Casa> casas) {
