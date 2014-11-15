@@ -23,7 +23,7 @@ import modelos.Rainha;
 import modelos.Rei;
 import modelos.Torre;
 import service.Movimento;
-import service.MovimentoPeao;
+import service.MovimentoRei;
 
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
@@ -92,11 +92,11 @@ public class XadrezPainel extends JPanel implements MouseListener
 //		
 //		
 //		
-//		System.out.println(pecasBrancas.get(8).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(49).getNumCasa().toString());
+//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(26).getNumCasa().toString());
 //        Movimento mov= new MovimentoTorre();
-//        mov.andar(pecasBrancas.get(8), casas.get(49), casas);
-//
+//        mov.andar(pecasBrancas.get(16), casas.get(42), casas);
 //        desenhaPecas(g);
+//     
 //
 //		=======================   TESTANDO O MOVIMENTO DE UMA PEAO  =========================
 //		
@@ -108,7 +108,16 @@ public class XadrezPainel extends JPanel implements MouseListener
 //
 //        desenhaPecas(g);
 //	
+//		=======================   TESTANDO O MOVIMENTO DO REI  =========================
+//		
+//		
+//		
+		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(35).getNumCasa().toString());
+        Movimento mov= new MovimentoRei();
+        mov.andar(pecasBrancas.get(16), casas.get(42), casas);
 
+        desenhaPecas(g);
+	
 	}
 	
 	//@Override
@@ -301,9 +310,31 @@ public class XadrezPainel extends JPanel implements MouseListener
 		} else {
 			rei.setFigura(rei_preto);
 			rei.setCasa(casas.get(5));
-			casas.get(5).setPeca(rei);
+			casas.get(5).setPeca(rei); 
 		}
 		pecas.add(rei);
+		
+		
+		Rei TESTE = new Rei();
+		TESTE.setTipo(PecaEnum.REI);
+		TESTE.setBranco(isBranca);
+		if(isBranca){
+			TESTE.setFigura(rei_branco);
+			TESTE.setCasa(casas.get(34));
+			casas.get(34).setPeca(TESTE);
+			pecas.add(TESTE);
+		} 
+		
+//		Torre TESTE = new Torre();
+//		TESTE.setTipo(PecaEnum.TORRE);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(torre_branco);
+//			TESTE.setCasa(casas.get(34));
+//			casas.get(34).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		}
+		
 		
 		return pecas;
 	}

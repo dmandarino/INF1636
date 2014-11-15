@@ -10,8 +10,8 @@ import Exception.MoimentoInvalidoException;
 public class MovimentoRei implements Movimento<Rei>{
 	
 	private static final int CIMA = -7;
-	private static final int DIR = 1;
-	private static final int ESQ = -1;
+	private static final int DIR = 2;
+	private static final int ESQ = 0;
 	private static final int BAIXO = 7;
 	private static final int BAIXO_DIR = 8;
 	private static final int BAIXO_ESQ = 6;
@@ -21,7 +21,7 @@ public class MovimentoRei implements Movimento<Rei>{
 	
 	@Override
 	public void andar(Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas) {
-		try {
+		try{
 			if ( isCasaOcupada(casaDestino))
 				throw new CasaOcupadaException();
 			
@@ -31,7 +31,12 @@ public class MovimentoRei implements Movimento<Rei>{
 				throw new CasaOcupadaException();
 			if(movimentoValido(rei, casas.get(rei.getCasa().getNumCasa() + direcao))){
 				casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
-				rei.setCasa(casas.get(rei.getCasa().getNumCasa() + direcao));
+				if(direcao.equals(BAIXO))
+					rei.setCasa(casas.get(rei.getCasa().getNumCasa() + direcao + 2));
+				else if (direcao.equals(ESQ))
+					rei.setCasa(casas.get(rei.getCasa().getNumCasa()));
+				else
+					rei.setCasa(casas.get(rei.getCasa().getNumCasa() + direcao));
 				casas.get(rei.getCasa().getNumCasa()).setPeca(rei);
 			}
 			else throw new MoimentoInvalidoException();
