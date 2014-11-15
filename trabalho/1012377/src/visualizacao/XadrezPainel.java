@@ -22,8 +22,6 @@ import modelos.PecaEnum;
 import modelos.Rainha;
 import modelos.Rei;
 import modelos.Torre;
-import service.Movimento;
-import service.MovimentoRei;
 
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
@@ -94,7 +92,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 //		
 //		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(26).getNumCasa().toString());
 //        Movimento mov= new MovimentoTorre();
-//        mov.andar(pecasBrancas.get(16), casas.get(42), casas);
+//        mov.andar(pecasBrancas.get(16), casas.get(41), casas);
 //        desenhaPecas(g);
 //     
 //
@@ -112,11 +110,11 @@ public class XadrezPainel extends JPanel implements MouseListener
 //		
 //		
 //		
-		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(35).getNumCasa().toString());
-        Movimento mov= new MovimentoRei();
-        mov.andar(pecasBrancas.get(16), casas.get(42), casas);
-
-        desenhaPecas(g);
+//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//        Movimento mov= new MovimentoRei();
+//        mov.andar(pecasBrancas.get(16), casas.get(43), casas);
+//
+//        desenhaPecas(g);
 	
 	}
 	
@@ -315,16 +313,16 @@ public class XadrezPainel extends JPanel implements MouseListener
 		pecas.add(rei);
 		
 		
-		Rei TESTE = new Rei();
-		TESTE.setTipo(PecaEnum.REI);
-		TESTE.setBranco(isBranca);
-		if(isBranca){
-			TESTE.setFigura(rei_branco);
-			TESTE.setCasa(casas.get(34));
-			casas.get(34).setPeca(TESTE);
-			pecas.add(TESTE);
-		} 
-		
+//		Rei TESTE = new Rei();
+//		TESTE.setTipo(PecaEnum.REI);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(rei_branco);
+//			TESTE.setCasa(casas.get(34));
+//			casas.get(34).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		} 
+//		
 //		Torre TESTE = new Torre();
 //		TESTE.setTipo(PecaEnum.TORRE);
 //		TESTE.setBranco(isBranca);

@@ -12,9 +12,9 @@ public class MovimentoRei implements Movimento<Rei>{
 	private static final int CIMA = -7;
 	private static final int DIR = 2;
 	private static final int ESQ = 0;
-	private static final int BAIXO = 7;
-	private static final int BAIXO_DIR = 8;
-	private static final int BAIXO_ESQ = 6;
+	private static final int BAIXO = 9;
+	private static final int BAIXO_DIR = 10;
+	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
 	
@@ -27,19 +27,16 @@ public class MovimentoRei implements Movimento<Rei>{
 			
 			Integer direcao = getDirecao(rei, casaDestino);
 			
-			if ( isCasaOcupada(casas.get(rei.getCasa().getNumCasa() + direcao)))
-				throw new CasaOcupadaException();
-			if(movimentoValido(rei, casas.get(rei.getCasa().getNumCasa() + direcao))){
-				casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
-				if(direcao.equals(BAIXO))
-					rei.setCasa(casas.get(rei.getCasa().getNumCasa() + direcao + 2));
-				else if (direcao.equals(ESQ))
-					rei.setCasa(casas.get(rei.getCasa().getNumCasa()));
-				else
+			if(movimentoValido(rei, casaDestino)){
+				if ( isCasaOcupada(casas.get(rei.getCasa().getNumCasa() + direcao)))
+					throw new CasaOcupadaException();
+				if(movimentoValido(rei, casas.get(rei.getCasa().getNumCasa() + direcao))){
+					casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
 					rei.setCasa(casas.get(rei.getCasa().getNumCasa() + direcao));
-				casas.get(rei.getCasa().getNumCasa()).setPeca(rei);
-			}
-			else throw new MoimentoInvalidoException();
+					casas.get(rei.getCasa().getNumCasa()).setPeca(rei);
+				}
+				else throw new MoimentoInvalidoException();
+			}else throw new MoimentoInvalidoException();
 		} catch (CasaOcupadaException e) {
 		} catch (Exception e) {
 			System.out.println(e);
@@ -53,12 +50,12 @@ public class MovimentoRei implements Movimento<Rei>{
 	private Integer getDirecao(Rei rei, Casa casaDestino) {
 		if (isMovDiagonal(casaDestino, rei)){
 			if(casaDestino.getX() > rei.getCasa().getX()){
-				if(casaDestino.getY() > rei.getCasa().getY() ){
+				if(casaDestino.getY() < rei.getCasa().getY() ){
 					return CIMA_DIR;
 				} else {
 					return BAIXO_DIR;
 				}
-			} else if (casaDestino.getY() > rei.getCasa().getY()){
+			} else if (casaDestino.getY() < rei.getCasa().getY()){
 				return CIMA_ESQ;
 			}
 			return BAIXO_ESQ;
@@ -78,7 +75,7 @@ public class MovimentoRei implements Movimento<Rei>{
 	@Override
 	public boolean movimentoValido(Rei rei, Casa c) {
 		return rei.getCasa().getX().equals(c.getX()) || rei.getCasa().getY().equals(c.getY()) ||
-				(c.getX() - rei.getCasa().getX() == c.getY() - rei.getCasa().getY());
+				(Math.abs(c.getX() - rei.getCasa().getX()) == Math.abs(c.getY() - rei.getCasa().getY()));
 	}
 
 	@Override
