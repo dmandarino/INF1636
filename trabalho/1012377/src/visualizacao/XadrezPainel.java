@@ -115,7 +115,24 @@ public class XadrezPainel extends JPanel implements MouseListener
 //        mov.andar(pecasBrancas.get(16), casas.get(43), casas);
 //
 //        desenhaPecas(g);
-	
+//		=======================   TESTANDO O MOVIMENTO DA RAINHA  =========================
+//		
+//		
+//		
+//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//        Movimento mov= new MovimentoRainha();
+//        mov.andar(pecasBrancas.get(16), casas.get(42), casas);
+//
+//        desenhaPecas(g);
+//
+//		=======================   TESTANDO O MOVIMENTO DO BISPO  =========================
+//		
+//		
+//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//        Movimento mov= new MovimentoBispo();
+//        mov.andar(pecasBrancas.get(16), casas.get(28), casas);
+//
+//        desenhaPecas(g);
 	}
 	
 	//@Override
@@ -332,7 +349,26 @@ public class XadrezPainel extends JPanel implements MouseListener
 //			casas.get(34).setPeca(TESTE);
 //			pecas.add(TESTE);
 //		}
-		
+//		
+//		Rainha TESTE = new Rainha();
+//		TESTE.setTipo(PecaEnum.RAINHA);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(dama_branco);
+//			TESTE.setCasa(casas.get(34));
+//			casas.get(34).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		}
+//		
+//		Bispo TESTE = new Bispo();
+//		TESTE.setTipo(PecaEnum.BISPO);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(bispo_branco);
+//			TESTE.setCasa(casas.get(34));
+//			casas.get(34).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		}
 		
 		return pecas;
 	}
