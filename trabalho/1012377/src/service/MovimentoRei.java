@@ -73,7 +73,7 @@ public class MovimentoRei implements Movimento<Rei>{
 	@Override
 	public boolean movimentoValido(Rei rei, Casa c) {
 		return rei.getCasa().getX().equals(c.getX()) || rei.getCasa().getY().equals(c.getY()) ||
-				(c.getX().equals(rei.getCasa().getX()) && c.getY().equals(rei.getCasa().getY()));
+				(c.getX() - rei.getCasa().getX() == c.getY() - rei.getCasa().getY());
 	}
 
 	@Override

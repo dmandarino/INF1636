@@ -79,7 +79,7 @@ public class MovimentoRainha implements Movimento<Rainha>{
 	@Override
 	public boolean movimentoValido(Rainha rainha, Casa c) {
 		return rainha.getCasa().getX().equals(c.getX()) || rainha.getCasa().getY().equals(c.getY()) ||
-				(c.getX().equals(rainha.getCasa().getX()) && c.getY().equals(rainha.getCasa().getY()));
+				(c.getX() - rainha.getCasa().getX() == c.getY() - rainha.getCasa().getY());
 	}
 
 	@Override
