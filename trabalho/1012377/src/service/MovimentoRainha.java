@@ -16,7 +16,7 @@ public class MovimentoRainha implements Movimento<Rainha>{
 	@Override
 	public boolean movimentoValido(Rainha e, Casa c) {
 		// TODO Auto-generated method stub
-		return false;
+		return false; 
 	}
 
 	@Override
