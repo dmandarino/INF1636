@@ -39,6 +39,7 @@ public class MovimentoRainha implements Movimento<Rainha>{
 					else throw new MoimentoInvalidoException();
 				}
 			}else throw new MoimentoInvalidoException();
+		} catch (MoimentoInvalidoException e) {
 		} catch (CasaOcupadaException e) {
 		} catch (Exception e) {
 			System.out.println(e);

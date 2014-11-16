@@ -22,6 +22,8 @@ import modelos.PecaEnum;
 import modelos.Rainha;
 import modelos.Rei;
 import modelos.Torre;
+import service.Movimento;
+import service.MovimentoCavalo;
 
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
@@ -131,6 +133,15 @@ public class XadrezPainel extends JPanel implements MouseListener
 //		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
 //        Movimento mov= new MovimentoBispo();
 //        mov.andar(pecasBrancas.get(16), casas.get(28), casas);
+//
+//        desenhaPecas(g);
+//		
+//		=======================   TESTANDO O MOVIMENTO DO CAVALO  =========================
+//		
+//		
+//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//        Movimento mov= new MovimentoCavalo();
+//        mov.andar(pecasBrancas.get(16), casas.get(18), casas);
 //
 //        desenhaPecas(g);
 	}
@@ -367,6 +378,17 @@ public class XadrezPainel extends JPanel implements MouseListener
 //			TESTE.setFigura(bispo_branco);
 //			TESTE.setCasa(casas.get(34));
 //			casas.get(34).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		}
+//	
+//		
+//		Cavalo TESTE = new Cavalo();
+//		TESTE.setTipo(PecaEnum.CAVALO);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(cavalo_branco);
+//			TESTE.setCasa(casas.get(35));
+//			casas.get(35).setPeca(TESTE);
 //			pecas.add(TESTE);
 //		}
 		
