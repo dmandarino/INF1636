@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import service.MovimentoRei;
 import service.MovimentoTorre;
 
 @SuppressWarnings("serial")
-public class XadrezPainel extends JPanel implements MouseListener 
+public class XadrezPainel extends JPanel implements MouseListener, MouseMotionListener
 {
 	JLabel mousePosition;
 	private static final int NUM_CASAS_X = 8;
@@ -44,7 +45,8 @@ public class XadrezPainel extends JPanel implements MouseListener
 	private HashMap<Integer, Casa> casas = new HashMap<Integer, Casa>();
 	private List<Peca> pecasBrancas = new ArrayList<Peca>();
 	private List<Peca> pecasPretas = new ArrayList<Peca>();
-	
+	private Casa casaClicada = new Casa();
+	private Casa casaDestino = new Casa();
 	
 	public Peca peca = new Peca();
 	private Image	bispo_branco, 
@@ -67,6 +69,8 @@ public class XadrezPainel extends JPanel implements MouseListener
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
 
 		//Carregar imagens que seram necessarias
 		try
@@ -90,93 +94,36 @@ public class XadrezPainel extends JPanel implements MouseListener
 		}
 		
 		if(painel == 0)	{
+            super.paintComponent(g);
+		        
 			criarCasas();
 			iniciarPecas(g);
 			desenhaPecas(g);
 		}
 	}
-		
-		
-//		=======================   TESTANDO O MOVIMENTO DE UMA TORRE  =========================
-//		
-//		
-//		
-//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(26).getNumCasa().toString());
-//      Movimento mov= new MovimentoTorre();
-//    mov.andar(pecasBrancas.get(16), casas.get(41), casas);
-//  desenhaPecas(g);
-//     
-//
-//		=======================   TESTANDO O MOVIMENTO DE UMA PEAO  =========================
-//		
-//		
-//		
-//		System.out.println(pecasBrancas.get(0).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
-//        Movimento mov= new MovimentoPeao();
-//        mov.andar(pecasBrancas.get(0), casas.get(41), casas);
-//
-//        desenhaPecas(g);
-//	
-//		=======================   TESTANDO O MOVIMENTO DO REI  =========================
-//		
-//		
-//		
-//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
-//        Movimento mov= new MovimentoRei();
-//        mov.andar(pecasBrancas.get(16), casas.get(43), casas);
-//
-//        desenhaPecas(g);
-//		=======================   TESTANDO O MOVIMENTO DA RAINHA  =========================
-//		
-//		
-//		
-//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
-//        Movimento mov= new MovimentoRainha();
-//        mov.andar(pecasBrancas.get(16), casas.get(42), casas);
-//
-//        desenhaPecas(g);
-//
-//		=======================   TESTANDO O MOVIMENTO DO BISPO  =========================
-//		
-//		
-//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
-//        Movimento mov= new MovimentoBispo();
-//        mov.andar(pecasBrancas.get(16), casas.get(28), casas);
-//
-//        desenhaPecas(g);
-//		
-//		=======================   TESTANDO O MOVIMENTO DO CAVALO  =========================
-//		
-//		
-//		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
-//        Movimento mov= new MovimentoCavalo();
-//        mov.andar(pecasBrancas.get(16), casas.get(18), casas);
-//
-//        desenhaPecas(g);
-	
-	
+    @Override
+    public void mouseMoved(MouseEvent e) {}
+
     @Override  
-    public void mousePressed(MouseEvent e) {  
-        MouseEvent posicao = new MouseEvent(XadrezPainel.this, e.getID(), e.getWhen(), e.getModifiers(), e.getX(), e.getY(), e.getClickCount(), e.isPopupTrigger());  
-        System.out.println("x = " + e.getX() + "y = " + e.getY());
-        System.out.println(posicao.getX());
-//            XadrezPainel.this.inputRecorder.setMouseEvent(posicao);  
+    public void mouseClicked(MouseEvent e) {
+    	System.out.println("ENTREI @");
+    	  int x = e.getX();
+		  int y = e.getY();
+		  int click = (x/50 + 8*(y/50));
+		  
+		  casaClicada = casas.get(click);
     }  
 
     @Override  
-    public void mouseReleased(MouseEvent e) {  
-//            XadrezPainel.this.inputRecorder.setMouseEvent(e);  
-    }
-	
-	 public void mouseClicked(MouseEvent e) { 
-		  int x = e.getX();
+    public void mouseReleased(MouseEvent e) {
+    	System.out.println("soltei");
+    	int x = e.getX();
 		  int y = e.getY();
 		  int click = (x/50 + 8*(y/50));
-		  int release = (x/50 + 8*(y/50));
 		  
-		  Peca peca = casas.get(click).getPeca();
-		  Casa destino = casas.get(release);
-		 
+		  casaDestino = casas.get(click);
+		  Peca peca = casaClicada.getPeca();
+		  
 		  Movimento mov = null;
 		  switch (peca.getTipo()) {
 			case PEAO:
@@ -195,10 +142,11 @@ public class XadrezPainel extends JPanel implements MouseListener
 				mov = new MovimentoRainha();
 				break;
 			default:
-					mov = new MovimentoRei();
+				mov = new MovimentoRei();
 		  }
-		  mov.andar (peca, destino, casas);
-	 }
+		  mov.andar (peca, casaDestino, casas);
+    }
+	
 	
 	
 	private void criarCasas() {
@@ -369,74 +317,27 @@ public class XadrezPainel extends JPanel implements MouseListener
 		}
 		pecas.add(rei);
 		
-		
-//		Rei TESTE = new Rei();
-//		TESTE.setTipo(PecaEnum.REI);
-//		TESTE.setBranco(isBranca);
-//		if(isBranca){
-//			TESTE.setFigura(rei_branco);
-//			TESTE.setCasa(casas.get(34));
-//			casas.get(34).setPeca(TESTE);
-//			pecas.add(TESTE);
-//		} 
-//		
-//		Torre TESTE = new Torre();
-//		TESTE.setTipo(PecaEnum.TORRE);
-//		TESTE.setBranco(isBranca);
-//		if(isBranca){
-//			TESTE.setFigura(torre_branco);
-//			TESTE.setCasa(casas.get(34));
-//			casas.get(34).setPeca(TESTE);
-//			pecas.add(TESTE);
-//		}
-//		
-//		Rainha TESTE = new Rainha();
-//		TESTE.setTipo(PecaEnum.RAINHA);
-//		TESTE.setBranco(isBranca);
-//		if(isBranca){
-//			TESTE.setFigura(dama_branco);
-//			TESTE.setCasa(casas.get(34));
-//			casas.get(34).setPeca(TESTE);
-//			pecas.add(TESTE);
-//		}
-//		
-//		Bispo TESTE = new Bispo();
-//		TESTE.setTipo(PecaEnum.BISPO);
-//		TESTE.setBranco(isBranca);
-//		if(isBranca){
-//			TESTE.setFigura(bispo_branco);
-//			TESTE.setCasa(casas.get(34));
-//			casas.get(34).setPeca(TESTE);
-//			pecas.add(TESTE);
-//		}
-//	
-//		
-//		Cavalo TESTE = new Cavalo();
-//		TESTE.setTipo(PecaEnum.CAVALO);
-//		TESTE.setBranco(isBranca);
-//		if(isBranca){
-//			TESTE.setFigura(cavalo_branco);
-//			TESTE.setCasa(casas.get(35));
-//			casas.get(35).setPeca(TESTE);
-//			pecas.add(TESTE);
-//		}
-		
 		return pecas;
 	}
-
-
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
 

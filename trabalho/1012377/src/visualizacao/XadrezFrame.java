@@ -3,11 +3,14 @@ package visualizacao;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
 
-public class XadrezFrame extends JPanel {
+public class XadrezFrame extends JPanel implements MouseListener, MouseMotionListener{
 	 public void paintComponent(Graphics g) {
          super.paintComponent(g);
          Graphics2D g2d = (Graphics2D) g;
@@ -39,4 +42,46 @@ public class XadrezFrame extends JPanel {
          XadrezPainel p = new XadrezPainel();
          p.paintComponent(g2d);
 }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("CLIQUE");
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+		System.out.println("PRESSED");
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }
