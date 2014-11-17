@@ -2,7 +2,8 @@ package visualizacao;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,8 +24,11 @@ import modelos.Rainha;
 import modelos.Rei;
 import modelos.Torre;
 import service.Movimento;
+import service.MovimentoBispo;
 import service.MovimentoCavalo;
 import service.MovimentoPeao;
+import service.MovimentoRainha;
+import service.MovimentoRei;
 import service.MovimentoTorre;
 
 @SuppressWarnings("serial")
@@ -90,6 +94,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 			iniciarPecas(g);
 			desenhaPecas(g);
 		}
+	}
 		
 		
 //		=======================   TESTANDO O MOVIMENTO DE UMA TORRE  =========================
@@ -150,21 +155,50 @@ public class XadrezPainel extends JPanel implements MouseListener
 //        desenhaPecas(g);
 	
 	
-	MouseAdapter mouseAdapter = new MouseAdapter() 
-	{  
-		  
-        @Override  
-        public void mousePressed(MouseEvent e) {  
-            MouseEvent posicao = new MouseEvent(XadrezPainel.this, e.getID(), e.getWhen(), e.getModifiers(), e.getX(), e.getY(), e.getClickCount(), e.isPopupTrigger());  
-            System.out.println("x = " + e.getX() + "y = " + e.getY());
-            XadrezPainel.this.inputRecorder.setMouseEvent(posicao);  
-        }  
+    @Override  
+    public void mousePressed(MouseEvent e) {  
+        MouseEvent posicao = new MouseEvent(XadrezPainel.this, e.getID(), e.getWhen(), e.getModifiers(), e.getX(), e.getY(), e.getClickCount(), e.isPopupTrigger());  
+        System.out.println("x = " + e.getX() + "y = " + e.getY());
+        System.out.println(posicao.getX());
+//            XadrezPainel.this.inputRecorder.setMouseEvent(posicao);  
+    }  
 
-        @Override  
-        public void mouseReleased(MouseEvent e) {  
-            XadrezPainel.this.inputRecorder.setMouseEvent(e);  
-        }  
+    @Override  
+    public void mouseReleased(MouseEvent e) {  
+//            XadrezPainel.this.inputRecorder.setMouseEvent(e);  
     }
+	
+	 public void mouseClicked(MouseEvent e) { 
+		  int x = e.getX();
+		  int y = e.getY();
+		  int click = (x/50 + 8*(y/50));
+		  int release = (x/50 + 8*(y/50));
+		  
+		  Peca peca = casas.get(click).getPeca();
+		  Casa destino = casas.get(release);
+		 
+		  Movimento mov = null;
+		  switch (peca.getTipo()) {
+			case PEAO:
+				mov = new MovimentoPeao();
+				break;
+		    case TORRE:
+				mov = new MovimentoTorre();
+				break;
+		    case CAVALO:
+				mov = new MovimentoCavalo();
+				break;
+		    case BISPO:
+				mov = new MovimentoBispo();
+				break;
+		    case RAINHA:
+				mov = new MovimentoRainha();
+				break;
+			default:
+					mov = new MovimentoRei();
+		  }
+		  mov.andar (peca, destino, casas);
+	 }
 	
 	
 	private void criarCasas() {
@@ -392,13 +426,6 @@ public class XadrezPainel extends JPanel implements MouseListener
 
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
@@ -411,18 +438,5 @@ public class XadrezPainel extends JPanel implements MouseListener
 		
 	}
 
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 }
 
