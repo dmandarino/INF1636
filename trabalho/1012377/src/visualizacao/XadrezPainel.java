@@ -2,8 +2,7 @@ package visualizacao;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import modelos.Bispo;
@@ -24,10 +24,13 @@ import modelos.Rei;
 import modelos.Torre;
 import service.Movimento;
 import service.MovimentoCavalo;
+import service.MovimentoPeao;
+import service.MovimentoTorre;
 
 @SuppressWarnings("serial")
 public class XadrezPainel extends JPanel implements MouseListener 
 {
+	JLabel mousePosition;
 	private static final int NUM_CASAS_X = 8;
 	private static final int NUM_CASAS_Y = 8;
 	private static final int DIMEN = 50;
@@ -55,6 +58,7 @@ public class XadrezPainel extends JPanel implements MouseListener
 
 
 	int painel	= 0;
+	protected Object inputRecorder;
 	
 	public void paintComponent(Graphics g)
 	{
@@ -63,18 +67,18 @@ public class XadrezPainel extends JPanel implements MouseListener
 		//Carregar imagens que seram necessarias
 		try
 		{
-			bispo_branco	= ImageIO.read(new File("Pecas/b_bispo.gif"));
-			cavalo_branco	= ImageIO.read(new File("Pecas/b_cavalo.gif"));
-			dama_branco		= ImageIO.read(new File("Pecas/b_dama.gif"));
-			peao_branco		= ImageIO.read(new File("Pecas/b_peao.gif"));
-			rei_branco		= ImageIO.read(new File("Pecas/b_rei.gif"));
-			torre_branco	= ImageIO.read(new File("Pecas/b_torre.gif"));
-			bispo_preto		= ImageIO.read(new File("Pecas/p_bispo.gif"));
-			cavalo_preto	= ImageIO.read(new File("Pecas/p_cavalo.gif"));
-			dama_preto		= ImageIO.read(new File("Pecas/p_dama.gif"));
-			peao_preto		= ImageIO.read(new File("Pecas/p_peao.gif"));
-			rei_preto		= ImageIO.read(new File("Pecas/p_rei.gif"));
-			torre_preto		= ImageIO.read(new File("Pecas/p_torre.gif"));
+			bispo_branco	= ImageIO.read(new File("Pecas/b_bispo.png"));
+			cavalo_branco	= ImageIO.read(new File("Pecas/b_cavalo.png"));
+			dama_branco		= ImageIO.read(new File("Pecas/b_dama.png"));
+			peao_branco		= ImageIO.read(new File("Pecas/b_peao.png"));
+			rei_branco		= ImageIO.read(new File("Pecas/b_rei.png"));
+			torre_branco	= ImageIO.read(new File("Pecas/b_torre.png"));
+			bispo_preto		= ImageIO.read(new File("Pecas/p_bispo.png"));
+			cavalo_preto	= ImageIO.read(new File("Pecas/p_cavalo.png"));
+			dama_preto		= ImageIO.read(new File("Pecas/p_dama.png"));
+			peao_preto		= ImageIO.read(new File("Pecas/p_peao.png"));
+			rei_preto		= ImageIO.read(new File("Pecas/p_rei.png"));
+			torre_preto		= ImageIO.read(new File("Pecas/p_torre.png"));
 		}
 		catch(IOException e)
 		{
@@ -86,16 +90,16 @@ public class XadrezPainel extends JPanel implements MouseListener
 			iniciarPecas(g);
 			desenhaPecas(g);
 		}
-
+		
 		
 //		=======================   TESTANDO O MOVIMENTO DE UMA TORRE  =========================
 //		
 //		
 //		
 //		System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(26).getNumCasa().toString());
-//        Movimento mov= new MovimentoTorre();
-//        mov.andar(pecasBrancas.get(16), casas.get(41), casas);
-//        desenhaPecas(g);
+//      Movimento mov= new MovimentoTorre();
+//    mov.andar(pecasBrancas.get(16), casas.get(41), casas);
+//  desenhaPecas(g);
 //     
 //
 //		=======================   TESTANDO O MOVIMENTO DE UMA PEAO  =========================
@@ -144,34 +148,25 @@ public class XadrezPainel extends JPanel implements MouseListener
 //        mov.andar(pecasBrancas.get(16), casas.get(18), casas);
 //
 //        desenhaPecas(g);
-	}
 	
-	//@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	//@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	//@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	//@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	MouseAdapter mouseAdapter = new MouseAdapter() 
+	{  
+		  
+        @Override  
+        public void mousePressed(MouseEvent e) {  
+            MouseEvent posicao = new MouseEvent(XadrezPainel.this, e.getID(), e.getWhen(), e.getModifiers(), e.getX(), e.getY(), e.getClickCount(), e.isPopupTrigger());  
+            System.out.println("x = " + e.getX() + "y = " + e.getY());
+            XadrezPainel.this.inputRecorder.setMouseEvent(posicao);  
+        }  
 
+        @Override  
+        public void mouseReleased(MouseEvent e) {  
+            XadrezPainel.this.inputRecorder.setMouseEvent(e);  
+        }  
+    }
+	
+	
 	private void criarCasas() {
 		int cont = 0;
 		for (int i = 0; i < NUM_CASAS_X; i++) {
@@ -393,6 +388,41 @@ public class XadrezPainel extends JPanel implements MouseListener
 //		}
 		
 		return pecas;
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
