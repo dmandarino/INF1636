@@ -1,9 +1,11 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import modelos.Bispo;
 import modelos.Casa;
+import modelos.Peca;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
 
@@ -13,21 +15,23 @@ public class MovimentoBispo implements Movimento<Bispo>{
 	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
-	
+	private TomadaDePeca tomadaDePeca;
 	
 	@Override
-	public void andar(Bispo bispo, Casa casaDestino, HashMap<Integer, Casa> casas) {
+	public void andar(Bispo bispo, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
 		try{
-			if ( isCasaOcupada(casaDestino))
+			if ( isCasaOcupadaMesmaCor(casaDestino, bispo))
 				throw new CasaOcupadaException();
 			
 			Integer direcao = getDirecao(bispo, casaDestino);
 			
 			if(movimentoValido(bispo, casaDestino)){
 				while(pecaNaoEstaNaCasa(bispo, casaDestino)){
-					if ( isCasaOcupada(casas.get(bispo.getCasa().getNumCasa() + direcao)))
+					if ( isCasaOcupadaMesmaCor(casas.get(bispo.getCasa().getNumCasa() + direcao), bispo))
 						throw new CasaOcupadaException();
-					if(movimentoValido(bispo, casas.get(bispo.getCasa().getNumCasa() + direcao))){
+					if ( isTomadaDePeca(casas.get(bispo.getCasa().getNumCasa() + direcao), casaDestino))
+						tomadaDePeca.tomar(casas, bispo, casas.get(bispo.getCasa().getNumCasa() + direcao), pecas);
+					else if(movimentoValido(bispo, casas.get(bispo.getCasa().getNumCasa() + direcao))){
 						casas.get(bispo.getCasa().getNumCasa()+1).setPeca(null);
 						bispo.setCasa(casas.get(bispo.getCasa().getNumCasa() + direcao));
 						casas.get(bispo.getCasa().getNumCasa()).setPeca(bispo);
@@ -69,9 +73,13 @@ public class MovimentoBispo implements Movimento<Bispo>{
 	}
 
 	@Override
-	public boolean isCasaOcupada(Casa casa) {
-		return casa.getPeca() != null;
+	public boolean isCasaOcupadaMesmaCor(Casa casa, Bispo bispo) {
+		return casa.getPeca().isBranco().equals(bispo.isBranco());
 	}
 
+	@Override
+	public boolean isTomadaDePeca(Casa casa, Casa casaDestino) {
+		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
+	}
 
 }

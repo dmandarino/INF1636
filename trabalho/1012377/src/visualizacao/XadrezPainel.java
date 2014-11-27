@@ -100,8 +100,67 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 			iniciarPecas(g);
 			desenhaPecas(g);
 		}
-	}
-    @Override
+	
+	
+//	=======================   TESTANDO O MOVIMENTO DE UMA TORRE  =========================
+//	
+//	
+//	
+	System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(37).getNumCasa().toString());
+	Movimento mov= new MovimentoTorre();
+	mov.andar(pecasBrancas.get(16), casas.get(37), casas, pecasBrancas);
+	repaint();
+// 
+//
+//	=======================   TESTANDO O MOVIMENTO DE UMA PEAO  =========================
+//	
+//	
+//	
+//	System.out.println(pecasBrancas.get(0).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//    Movimento mov= new MovimentoPeao();
+//    mov.andar(pecasBrancas.get(0), casas.get(41), casas);
+//
+//    desenhaPecas(g);
+//
+//	=======================   TESTANDO O MOVIMENTO DO REI  =========================
+//	
+//	
+//	
+//	System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//    Movimento mov= new MovimentoRei();
+//    mov.andar(pecasBrancas.get(16), casas.get(43), casas);
+//
+//    desenhaPecas(g);
+//	=======================   TESTANDO O MOVIMENTO DA RAINHA  =========================
+//	
+//	
+//	
+//	System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//    Movimento mov= new MovimentoRainha();
+//    mov.andar(pecasBrancas.get(16), casas.get(42), casas);
+//
+//    desenhaPecas(g);
+//
+//	=======================   TESTANDO O MOVIMENTO DO BISPO  =========================
+//	
+//	
+//	System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//    Movimento mov= new MovimentoBispo();
+//    mov.andar(pecasBrancas.get(16), casas.get(28), casas);
+//
+//    desenhaPecas(g);
+//	
+//	=======================   TESTANDO O MOVIMENTO DO CAVALO  =========================
+//	
+//	
+//	System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(41).getNumCasa().toString());
+//    Movimento mov= new MovimentoCavalo();
+//    mov.andar(pecasBrancas.get(16), casas.get(18), casas);
+//
+//    desenhaPecas(g);
+ 
+}
+	@Override
     public void mouseMoved(MouseEvent e) {}
 
     @Override  
@@ -127,7 +186,7 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 		  Movimento mov = null;
 		  switch (peca.getTipo()) {
 			case PEAO:
-				mov = new MovimentoPeao();
+				mov = new MovimentoPeao(peca.getFigura());
 				break;
 		    case TORRE:
 				mov = new MovimentoTorre();
@@ -144,7 +203,10 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 			default:
 				mov = new MovimentoRei();
 		  }
-		  mov.andar (peca, casaDestino, casas);
+		  if(peca.isBranco())
+			  mov.andar (peca, casaDestino, casas, pecasBrancas);
+		  mov.andar (peca, casaDestino, casas, pecasPretas);
+		  repaint();
     }
 	
 	
@@ -316,6 +378,58 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 			casas.get(5).setPeca(rei); 
 		}
 		pecas.add(rei);
+		
+//		Rei TESTE = new Rei();
+//		TESTE.setTipo(PecaEnum.REI);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(rei_branco);
+//			TESTE.setCasa(casas.get(34));
+//			casas.get(34).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		} 
+		
+		Torre TESTE = new Torre();
+		TESTE.setTipo(PecaEnum.TORRE);
+		TESTE.setBranco(isBranca);
+		if(isBranca){
+			TESTE.setFigura(torre_branco);
+			TESTE.setCasa(casas.get(34));
+			casas.get(34).setPeca(TESTE);
+			pecas.add(TESTE);
+		}
+//		
+//		Rainha TESTE = new Rainha();
+//		TESTE.setTipo(PecaEnum.RAINHA);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(dama_branco);
+//			TESTE.setCasa(casas.get(34));
+//			casas.get(34).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		}
+//		
+//		Bispo TESTE = new Bispo();
+//		TESTE.setTipo(PecaEnum.BISPO);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(bispo_branco);
+//			TESTE.setCasa(casas.get(34));
+//			casas.get(34).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		}
+//	
+//		
+//		Cavalo TESTE = new Cavalo();
+//		TESTE.setTipo(PecaEnum.CAVALO);
+//		TESTE.setBranco(isBranca);
+//		if(isBranca){
+//			TESTE.setFigura(cavalo_branco);
+//			TESTE.setCasa(casas.get(35));
+//			casas.get(35).setPeca(TESTE);
+//			pecas.add(TESTE);
+//		}
+		
 		
 		return pecas;
 	}

@@ -1,8 +1,10 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import modelos.Casa;
+import modelos.Peca;
 import modelos.Rei;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
@@ -18,19 +20,22 @@ public class MovimentoRei implements Movimento<Rei>{
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
 	
+	private TomadaDePeca tomadaDePeca;
 	
 	@Override
-	public void andar(Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas) {
+	public void andar(Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
 		try{
-			if ( isCasaOcupada(casaDestino))
+			if ( isCasaOcupadaMesmaCor(casaDestino, rei))
 				throw new CasaOcupadaException();
 			
 			Integer direcao = getDirecao(rei, casaDestino);
 			
 			if(movimentoValido(rei, casaDestino)){
-				if ( isCasaOcupada(casas.get(rei.getCasa().getNumCasa() + direcao)))
+				if ( isCasaOcupadaMesmaCor(casas.get(rei.getCasa().getNumCasa() + direcao), rei))
 					throw new CasaOcupadaException();
-				if(movimentoValido(rei, casas.get(rei.getCasa().getNumCasa() + direcao))){
+				if ( isTomadaDePeca(casas.get(rei.getCasa().getNumCasa() + direcao), casaDestino))
+					tomadaDePeca.tomar(casas, rei, casas.get(rei.getCasa().getNumCasa() + direcao), pecas);
+				else if(movimentoValido(rei, casas.get(rei.getCasa().getNumCasa() + direcao))){
 					casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
 					rei.setCasa(casas.get(rei.getCasa().getNumCasa() + direcao));
 					casas.get(rei.getCasa().getNumCasa()).setPeca(rei);
@@ -80,8 +85,13 @@ public class MovimentoRei implements Movimento<Rei>{
 	}
 
 	@Override
-	public boolean isCasaOcupada(Casa casa) {
-		return casa.getPeca() != null;
+	public boolean isCasaOcupadaMesmaCor(Casa casa, Rei rei) {
+		return casa.getPeca().isBranco().equals(rei.isBranco());
+	}
+
+	@Override
+	public boolean isTomadaDePeca(Casa casa, Casa casaDestino) {
+		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
 	}
 
 }

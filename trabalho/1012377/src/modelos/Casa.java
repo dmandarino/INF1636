@@ -6,6 +6,7 @@ public class Casa {
 	private Peca peca;
 	private Integer x;
 	private Integer y;
+	private Boolean isBranca; 
 	
 	public Integer getNumCasa() {
 		return numCasa;
@@ -31,4 +32,11 @@ public class Casa {
 	public void setY(Integer y) {
 		this.y = y;
 	}
+	public Boolean getIsBranca() {
+		return isBranca;
+	}
+	public void setIsBranca(Boolean isBranca) {
+		this.isBranca = isBranca;
+	}
+	
 }

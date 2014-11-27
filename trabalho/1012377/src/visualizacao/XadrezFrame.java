@@ -11,6 +11,12 @@ import javax.swing.JPanel;
 
 
 public class XadrezFrame extends JPanel implements MouseListener, MouseMotionListener{
+	
+	public XadrezFrame()
+	{
+		this.addMouseListener(this);
+	}
+	
 	 public void paintComponent(Graphics g) {
          super.paintComponent(g);
          Graphics2D g2d = (Graphics2D) g;

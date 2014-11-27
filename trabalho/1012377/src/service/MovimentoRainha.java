@@ -1,8 +1,10 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import modelos.Casa;
+import modelos.Peca;
 import modelos.Rainha;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
@@ -18,20 +20,23 @@ public class MovimentoRainha implements Movimento<Rainha>{
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
 	
+	private TomadaDePeca tomadaDePeca;
 	
 	@Override
-	public void andar(Rainha rainha, Casa casaDestino, HashMap<Integer, Casa> casas) {
+	public void andar(Rainha rainha, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
 		try{
-			if ( isCasaOcupada(casaDestino))
+			if ( isCasaOcupadaMesmaCor(casaDestino, rainha))
 				throw new CasaOcupadaException();
 			
 			Integer direcao = getDirecao(rainha, casaDestino);
 			
 			if(movimentoValido(rainha, casaDestino)){
 				while(pecaNaoEstaNaCasa(rainha, casaDestino)){
-					if ( isCasaOcupada(casas.get(rainha.getCasa().getNumCasa() + direcao)))
+					if ( isCasaOcupadaMesmaCor(casas.get(rainha.getCasa().getNumCasa() + direcao), rainha))
 						throw new CasaOcupadaException();
-					if(movimentoValido(rainha, casas.get(rainha.getCasa().getNumCasa() + direcao))){
+					if ( isTomadaDePeca(casas.get(rainha.getCasa().getNumCasa() + direcao), casaDestino))
+						tomadaDePeca.tomar(casas, rainha, casas.get(rainha.getCasa().getNumCasa() + direcao), pecas);
+					else if(movimentoValido(rainha, casas.get(rainha.getCasa().getNumCasa() + direcao))){
 						casas.get(rainha.getCasa().getNumCasa()+1).setPeca(null);
 						rainha.setCasa(casas.get(rainha.getCasa().getNumCasa() + direcao));
 						casas.get(rainha.getCasa().getNumCasa()).setPeca(rainha);
@@ -86,8 +91,13 @@ public class MovimentoRainha implements Movimento<Rainha>{
 	}
 
 	@Override
-	public boolean isCasaOcupada(Casa casa) {
-		return casa.getPeca() != null;
+	public boolean isCasaOcupadaMesmaCor(Casa casa, Rainha rainha) {
+		return casa.getPeca().isBranco().equals(rainha.isBranco());
+	}
+
+	@Override
+	public boolean isTomadaDePeca(Casa casa, Casa casaDestino) {
+		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
 	}
 
 

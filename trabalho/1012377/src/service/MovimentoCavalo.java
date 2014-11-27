@@ -1,9 +1,11 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import modelos.Casa;
 import modelos.Cavalo;
+import modelos.Peca;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
 
@@ -21,15 +23,18 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 	private static final int UMA_CASA = 50;
 	private static final int DUAS_CASAS = 100;
 	
+	private TomadaDePeca tomadaDePeca;
+	
 	@Override
-	public void andar(Cavalo cavalo, Casa casaDestino, HashMap<Integer, Casa> casas) {
+	public void andar(Cavalo cavalo, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
 		try{
-			if ( isCasaOcupada(casaDestino))
+			if ( isCasaOcupadaMesmaCor(casaDestino, cavalo))
 				throw new CasaOcupadaException();
 			
 			Integer direcao = getDirecao(cavalo, casaDestino);
-			
-			if(movimentoValido(cavalo, casaDestino)){
+			if ( isTomadaDePeca(casas.get(cavalo.getCasa().getNumCasa() + direcao), casaDestino))
+				tomadaDePeca.tomar(casas, cavalo, casas.get(cavalo.getCasa().getNumCasa() + direcao), pecas);
+			else if(movimentoValido(cavalo, casaDestino)){
 				casas.get(cavalo.getCasa().getNumCasa()+1).setPeca(null);
 				cavalo.setCasa(casas.get(cavalo.getCasa().getNumCasa() + direcao));
 				casas.get(cavalo.getCasa().getNumCasa()).setPeca(cavalo);
@@ -75,8 +80,14 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 	}
 
 	@Override
-	public boolean isCasaOcupada(Casa casa) {
-		return casa.getPeca() != null;
+	public boolean isCasaOcupadaMesmaCor(Casa casa, Cavalo cavalo) {
+		return casa.getPeca().isBranco().equals(cavalo.isBranco());
 	}
+
+	@Override
+	public boolean isTomadaDePeca(Casa casa, Casa casaDestino) {
+		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
+	}
+
 
 }
