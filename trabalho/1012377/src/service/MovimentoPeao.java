@@ -82,13 +82,6 @@ public class MovimentoPeao implements Movimento<Peao>{
 	
 	private void isPromocaoPeao(Peao p, HashMap<Integer, Casa> casas, List<Peca> pecas){
 		if(p.getCasa().getY().equals(Integer.valueOf(10)) || p.getCasa().getY().equals(Integer.valueOf(360))){
-			Rainha rainha = new Rainha();
-			rainha.setTipo(PecaEnum.RAINHA);
-			rainha.setCasa(casas.get(p.getCasa().getNumCasa()));
-			rainha.setBranco(p.isBranco());
-			rainha.setFigura(image);
-			casas.get(p.getCasa().getNumCasa()).setPeca(rainha);
-			
 			try{
 				for (Peca peca : pecas) {
 					if(peca.equals(p)){
@@ -100,6 +93,14 @@ public class MovimentoPeao implements Movimento<Peao>{
 			}catch(Exception e) {
 				System.out.println(e);
 			}
+
+			Rainha rainha = new Rainha();
+			rainha.setTipo(PecaEnum.RAINHA);
+			rainha.setCasa(casas.get(p.getCasa().getNumCasa()));
+			rainha.setBranco(p.isBranco());
+			rainha.setFigura(image);
+			casas.get(p.getCasa().getNumCasa()).setPeca(rainha);
+			pecas.add(rainha);
 		}
 	}
 
