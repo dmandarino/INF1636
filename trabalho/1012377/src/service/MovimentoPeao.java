@@ -11,6 +11,7 @@ import modelos.PecaEnum;
 import modelos.Rainha;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
+import Exception.RemocaoComErroException;
 
 public class MovimentoPeao implements Movimento<Peao>{
 
@@ -33,7 +34,7 @@ public class MovimentoPeao implements Movimento<Peao>{
 				casas.get(p.getCasa().getNumCasa()).setPeca(null);
 				p.setCasa(casaDestino);
 				casas.get(casaDestino.getNumCasa()).setPeca(p);
-				isPromocaoPeao(p, casas);
+				isPromocaoPeao(p, casas, pecas);
 			} 
 			else
 				throw new MoimentoInvalidoException();
@@ -79,7 +80,7 @@ public class MovimentoPeao implements Movimento<Peao>{
 		return casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() - CASA_VERT) && p.isBranco();
 	}
 	
-	private void isPromocaoPeao(Peao p, HashMap<Integer, Casa> casas){
+	private void isPromocaoPeao(Peao p, HashMap<Integer, Casa> casas, List<Peca> pecas){
 		if(p.getCasa().getY().equals(Integer.valueOf(10)) || p.getCasa().getY().equals(Integer.valueOf(360))){
 			Rainha rainha = new Rainha();
 			rainha.setTipo(PecaEnum.RAINHA);
@@ -87,6 +88,18 @@ public class MovimentoPeao implements Movimento<Peao>{
 			rainha.setBranco(p.isBranco());
 			rainha.setFigura(image);
 			casas.get(p.getCasa().getNumCasa()).setPeca(rainha);
+			
+			try{
+				for (Peca peca : pecas) {
+					if(peca.equals(p)){
+						if(!pecas.remove(p))
+							throw new RemocaoComErroException();
+					}
+				}
+			}catch(RemocaoComErroException e) {
+			}catch(Exception e) {
+				System.out.println(e);
+			}
 		}
 	}
 
