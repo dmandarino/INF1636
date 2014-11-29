@@ -2,9 +2,6 @@ package visualizacao;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +30,7 @@ import service.MovimentoRei;
 import service.MovimentoTorre;
 
 @SuppressWarnings("serial")
-public class XadrezPainel extends JPanel implements MouseListener, MouseMotionListener
+public class XadrezPainel extends JPanel 
 {
 	JLabel mousePosition;
 	private static final int NUM_CASAS_X = 8;
@@ -69,8 +66,8 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
+//        this.addMouseListener(this);
+//        this.addMouseMotionListener(this);
 
 		//Carregar imagens que seram necessarias
 		try
@@ -106,10 +103,10 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 //	
 //	
 //	
-	System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(37).getNumCasa().toString());
-	Movimento mov= new MovimentoTorre();
-	mov.andar(pecasBrancas.get(16), casas.get(37), casas, pecasBrancas);
-	repaint();
+//	System.out.println(pecasBrancas.get(16).getCasa().getNumCasa().toString() + "     onde ir: " + casas.get(37).getNumCasa().toString());
+//	Movimento mov= new MovimentoTorre();
+//	mov.andar(pecasBrancas.get(16), casas.get(37), casas, pecasBrancas);
+//	repaint();
 // 
 //
 //	=======================   TESTANDO O MOVIMENTO DE UMA PEAO  =========================
@@ -160,28 +157,17 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 //    desenhaPecas(g);
  
 }
-	@Override
-    public void mouseMoved(MouseEvent e) {}
 
-    @Override  
-    public void mouseClicked(MouseEvent e) {
-    	System.out.println("ENTREI @");
-    	  int x = e.getX();
-		  int y = e.getY();
-		  int click = (x/50 + 8*(y/50));
-		  
+    public Casa mouseClicked(int click) {
 		  casaClicada = casas.get(click);
+		  return casaClicada;
     }  
 
-    @Override  
-    public void mouseReleased(MouseEvent e) {
-    	System.out.println("soltei");
-    	int x = e.getX();
-		  int y = e.getY();
-		  int click = (x/50 + 8*(y/50));
-		  
+    public void mouseReleased(Casa casaClicada, int click) {
 		  casaDestino = casas.get(click);
+		  System.out.println(casaClicada.getNumCasa().toString() + "  " + casaDestino.getNumCasa().toString());
 		  Peca peca = casaClicada.getPeca();
+		  
 		  
 		  Movimento mov = null;
 		  switch (peca.getTipo()) {
@@ -204,8 +190,9 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 				mov = new MovimentoRei();
 		  }
 		  if(peca.isBranco())
+			  mov.andar (peca, casaDestino, casas, pecasPretas);
+		  else 
 			  mov.andar (peca, casaDestino, casas, pecasBrancas);
-		  mov.andar (peca, casaDestino, casas, pecasPretas);
 		  repaint();
     }
 	
@@ -219,7 +206,7 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 				c.setNumCasa(cont);
 				c.setY(PIXEL_INI + i*DIMEN);
 				c.setX(PIXEL_INI + j*DIMEN);
-				System.out.println(c.getNumCasa().toString() + "  X= " + c.getX().toString() + "  Y= " + c.getY().toString());
+//				System.out.println(c.getNumCasa().toString() + "  X= " + c.getX().toString() + "  Y= " + c.getY().toString());
 				cont ++;
 				casas.put(cont, c);
  			}
@@ -388,7 +375,7 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 //			casas.get(34).setPeca(TESTE);
 //			pecas.add(TESTE);
 //		} 
-		
+//		
 		Torre TESTE = new Torre();
 		TESTE.setTipo(PecaEnum.TORRE);
 		TESTE.setBranco(isBranca);
@@ -429,29 +416,13 @@ public class XadrezPainel extends JPanel implements MouseListener, MouseMotionLi
 //			casas.get(35).setPeca(TESTE);
 //			pecas.add(TESTE);
 //		}
-		
+		Long id = 1L;
+		for (Peca peca : pecas) {
+			peca.setId(id);
+			id++;
+		}
 		
 		return pecas;
-	}
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

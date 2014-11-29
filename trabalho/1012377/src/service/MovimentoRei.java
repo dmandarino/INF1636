@@ -86,6 +86,8 @@ public class MovimentoRei implements Movimento<Rei>{
 
 	@Override
 	public boolean isCasaOcupadaMesmaCor(Casa casa, Rei rei) {
+		if(casa.getPeca() == null)
+			return false;
 		return casa.getPeca().isBranco().equals(rei.isBranco());
 	}
 

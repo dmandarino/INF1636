@@ -80,7 +80,9 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 	}
 
 	@Override
-	public boolean isCasaOcupadaMesmaCor(Casa casa, Cavalo cavalo) {
+	public boolean isCasaOcupadaMesmaCor(Casa casa, Cavalo cavalo){ 
+		if(casa.getPeca() == null)
+			return false;
 		return casa.getPeca().isBranco().equals(cavalo.isBranco());
 	}
 

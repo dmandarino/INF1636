@@ -6,11 +6,19 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import modelos.Casa;
+
 
 public class XadrezFrame extends JPanel implements MouseListener, MouseMotionListener{
+	
+	private Casa casaClicada = new Casa();
+	private HashMap<Integer, Casa> casas = new HashMap<Integer, Casa>();
+	private XadrezPainel p = new XadrezPainel();
+	
 	
 	public XadrezFrame()
 	{
@@ -45,13 +53,11 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
         	 else
         		 branco = true;
          }
-         XadrezPainel p = new XadrezPainel();
          p.paintComponent(g2d);
-}
+	 }
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("CLIQUE");
 		
 	}
 
@@ -69,14 +75,16 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
-		System.out.println("PRESSED");
+	 	  int click = getClick(e);
+		  casaClicada =  p.mouseClicked(click);
 	}
+
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		 int click = getClick(e);
+		 p.mouseReleased(casaClicada, click);
+		 repaint();
 	}
 
 	@Override
@@ -89,5 +97,13 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	private int getClick(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		int click = (x/50 + 8*(y/50));
+		click++;
+		return click;
 	}
 }

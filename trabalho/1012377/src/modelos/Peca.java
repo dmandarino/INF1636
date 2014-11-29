@@ -9,6 +9,7 @@ public class Peca {
 	private PecaEnum tipo;
 	private Image figura;
 	private Boolean isBranco;
+	private Long id;
 	
 
 	public Boolean isBranco() {
@@ -43,4 +44,21 @@ public class Peca {
 		this.tipo = tipo;
 	}
 
+	public Boolean getIsBranco() {
+		return isBranco;
+	}
+
+	public void setIsBranco(Boolean isBranco) {
+		this.isBranco = isBranco;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
 }

@@ -74,6 +74,8 @@ public class MovimentoBispo implements Movimento<Bispo>{
 
 	@Override
 	public boolean isCasaOcupadaMesmaCor(Casa casa, Bispo bispo) {
+		if(casa.getPeca() == null)
+			return false;
 		return casa.getPeca().isBranco().equals(bispo.isBranco());
 	}
 
