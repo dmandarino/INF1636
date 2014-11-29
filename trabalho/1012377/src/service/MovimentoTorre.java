@@ -8,7 +8,6 @@ import modelos.Peca;
 import modelos.Torre;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
-import Exception.RemocaoComErroException;
 
 public class MovimentoTorre implements Movimento<Torre>{
 
@@ -17,7 +16,7 @@ public class MovimentoTorre implements Movimento<Torre>{
 	private static final int ESQ = 0;
 	private static final int BAIXO = 9;
 	
-	private TomadaDePeca tomadaDePeca;
+	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
 	
 	@Override
 	public void andar(Torre t, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
@@ -32,8 +31,8 @@ public class MovimentoTorre implements Movimento<Torre>{
 					if ( isCasaOcupadaMesmaCor(casas.get(t.getCasa().getNumCasa() + direcao), t))
 						throw new CasaOcupadaException();
 					if ( isTomadaDePeca(casas.get(t.getCasa().getNumCasa() + direcao), casaDestino))
-//						tomadaDePeca.tomar(casas, t, casas.get(t.getCasa().getNumCasa() + direcao), pecas);
-						tomar(casas, t, casas.get(t.getCasa().getNumCasa() + direcao), pecas);
+						tomadaDePeca.tomar(casas, t, casas.get(t.getCasa().getNumCasa() + direcao), pecas);
+//						tomar(casas, t, casas.get(t.getCasa().getNumCasa() + direcao), pecas);
 					else if(movimentoValido(t, casas.get(t.getCasa().getNumCasa() + direcao))){
 						casas.get(t.getCasa().getNumCasa()+1).setPeca(null);
 						t.setCasa(casas.get(t.getCasa().getNumCasa() + direcao));
@@ -83,20 +82,18 @@ public class MovimentoTorre implements Movimento<Torre>{
 		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
 	}
 
-	private void tomar(HashMap<Integer, Casa> casas, Torre p, Casa casaDestino, List<Peca> pecas) {
-		Peca peca = casaDestino.getPeca();
-		try{
-			pecas.remove(casaDestino.getPeca());
-			if(pecas.contains(peca))
-				throw new RemocaoComErroException();
-			casas.get(p.getCasa().getNumCasa()+1).setPeca(null);
-			p.setCasa(casas.get(casaDestino));
-			casas.get(p.getCasa().getNumCasa()).setPeca(p);
-		}catch(RemocaoComErroException e) {
-		}catch(Exception e) {
-			System.out.println(e);
-		}
-
-		
-	}
+//	private void tomar(HashMap<Integer, Casa> casas, Torre p, Casa casaDestino, List<Peca> pecas) {
+//		Peca peca = casaDestino.getPeca();
+//		try{
+//			pecas.remove(casaDestino.getPeca());
+//			if(pecas.contains(peca))
+//				throw new RemocaoComErroException();
+//			casas.get(p.getCasa().getNumCasa()+1).setPeca(null);
+//			p.setCasa(casas.get(casaDestino));
+//			casas.get(p.getCasa().getNumCasa()).setPeca(p);
+//		}catch(RemocaoComErroException e) {
+//		}catch(Exception e) {
+//			System.out.println(e);
+//		}
+//	}
 }
