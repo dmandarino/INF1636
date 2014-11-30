@@ -39,7 +39,7 @@ public class MovimentoRainha implements Movimento<Rainha>{
 					else if(movimentoValido(rainha, casas.get(rainha.getCasa().getNumCasa() + direcao))){
 						casas.get(rainha.getCasa().getNumCasa()+1).setPeca(null);
 						rainha.setCasa(casas.get(rainha.getCasa().getNumCasa() + direcao));
-						casas.get(rainha.getCasa().getNumCasa()).setPeca(rainha);
+						casas.get(rainha.getCasa().getNumCasa()+1).setPeca(rainha);
 					}
 					else throw new MoimentoInvalidoException();
 				}

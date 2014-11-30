@@ -38,7 +38,7 @@ public class MovimentoRei implements Movimento<Rei>{
 				else if(movimentoValido(rei, casas.get(rei.getCasa().getNumCasa() + direcao))){
 					casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
 					rei.setCasa(casas.get(rei.getCasa().getNumCasa() + direcao));
-					casas.get(rei.getCasa().getNumCasa()).setPeca(rei);
+					casas.get(rei.getCasa().getNumCasa()+1).setPeca(rei);
 				}
 				else throw new MoimentoInvalidoException();
 			}else throw new MoimentoInvalidoException();

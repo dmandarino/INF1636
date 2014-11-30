@@ -37,7 +37,7 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 			else if(movimentoValido(cavalo, casaDestino)){
 				casas.get(cavalo.getCasa().getNumCasa()+1).setPeca(null);
 				cavalo.setCasa(casas.get(cavalo.getCasa().getNumCasa() + direcao));
-				casas.get(cavalo.getCasa().getNumCasa()).setPeca(cavalo);
+				casas.get(cavalo.getCasa().getNumCasa()+1).setPeca(cavalo);
 			}
 			else throw new MoimentoInvalidoException();
 		} catch (MoimentoInvalidoException e) {

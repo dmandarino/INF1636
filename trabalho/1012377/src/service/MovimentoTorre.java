@@ -36,7 +36,7 @@ public class MovimentoTorre implements Movimento<Torre>{
 					else if(movimentoValido(t, casas.get(t.getCasa().getNumCasa() + direcao))){
 						casas.get(t.getCasa().getNumCasa()+1).setPeca(null);
 						t.setCasa(casas.get(t.getCasa().getNumCasa() + direcao));
-						casas.get(t.getCasa().getNumCasa()).setPeca(t);
+						casas.get(t.getCasa().getNumCasa()+1).setPeca(t);
 					}
 					else throw new MoimentoInvalidoException();
 				}

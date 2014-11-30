@@ -35,7 +35,7 @@ public class MovimentoBispo implements Movimento<Bispo>{
 					else if(movimentoValido(bispo, casas.get(bispo.getCasa().getNumCasa() + direcao))){
 						casas.get(bispo.getCasa().getNumCasa()+1).setPeca(null);
 						bispo.setCasa(casas.get(bispo.getCasa().getNumCasa() + direcao));
-						casas.get(bispo.getCasa().getNumCasa()).setPeca(bispo);
+						casas.get(bispo.getCasa().getNumCasa()+1).setPeca(bispo);
 					}
 					else throw new MoimentoInvalidoException();
 				}
