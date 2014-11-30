@@ -15,7 +15,8 @@ public class MovimentoBispo implements Movimento<Bispo>{
 	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
-	private TomadaDePeca tomadaDePeca;
+
+	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
 	
 	@Override
 	public void andar(Bispo bispo, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {

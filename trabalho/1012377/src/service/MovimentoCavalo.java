@@ -23,7 +23,7 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 	private static final int UMA_CASA = 50;
 	private static final int DUAS_CASAS = 100;
 	
-	private TomadaDePeca tomadaDePeca;
+	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
 	
 	@Override
 	public void andar(Cavalo cavalo, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {

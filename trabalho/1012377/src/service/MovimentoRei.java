@@ -20,7 +20,7 @@ public class MovimentoRei implements Movimento<Rei>{
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
 	
-	private TomadaDePeca tomadaDePeca;
+	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
 	
 	@Override
 	public void andar(Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
