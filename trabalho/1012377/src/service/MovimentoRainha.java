@@ -20,7 +20,7 @@ public class MovimentoRainha implements Movimento<Rainha>{
 	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
-	private Integer[] direcoes = {-7, 2, 0, 9, 10, 8, -6, -8};
+	private Integer[] direcoes = {0, -7, 2, 0, 9, 10, 8, -6, -8};
 	
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
 	
@@ -120,14 +120,18 @@ public class MovimentoRainha implements Movimento<Rainha>{
 
 	private boolean isCheck(Rainha rainha, HashMap<Integer, Casa> casas){
 		for(int i=1; i <= direcoes.length; i++){
-			Casa casa = casas.get(rainha.getCasa().getNumCasa()+direcoes[i]-1);
+			System.out.println(String.valueOf(i) + " valor: " + String.valueOf(direcoes[i]));
+			if(casas.get(rainha.getCasa().getNumCasa()+direcoes[i]) == null)
+				return false;
+			Casa casa = casas.get(rainha.getCasa().getNumCasa()+direcoes[i]);
 			while(casa.getPeca() != null){
-				if(!isLimiteTabuleiro(casas.get(casa.getNumCasa()+1))){
+				if(!isLimiteTabuleiro(casas.get(casa.getNumCasa()))){
 					casa = casas.get(casa.getNumCasa()+direcoes[i]);
 				} 
 				else break;
 			}
-			if(casa.getPeca().getTipo().equals(PecaEnum.REI))
+			if(casa.getPeca() != null)
+				if(casa.getPeca().getId() == 16)
 				return true;
 		}
 		return false;
