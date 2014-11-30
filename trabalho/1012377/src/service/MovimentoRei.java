@@ -96,4 +96,11 @@ public class MovimentoRei implements Movimento<Rei>{
 		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
 	}
 
+	@Override
+	public void andar(Rei e, Casa c, HashMap<Integer, Casa> casas,
+			List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

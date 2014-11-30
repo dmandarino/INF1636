@@ -10,6 +10,8 @@ public interface Movimento <E>{
 
 	public void andar(E e, Casa c, HashMap<Integer, Casa> casas, List<Peca> pecas);
 	
+	public void andar(E e, Casa c, HashMap<Integer, Casa> casas, List<Peca> pecasAdversarias, List<Peca> pecasAmigas);
+	
 	public boolean movimentoValido(E e, Casa c);
 
 	public boolean isCasaOcupadaMesmaCor(Casa casa, E e);
