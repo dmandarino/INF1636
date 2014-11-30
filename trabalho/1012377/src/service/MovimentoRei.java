@@ -63,7 +63,7 @@ public class MovimentoRei implements Movimento<Rei>{
 			Torre t = new Torre();
 			if (rei.getPrimeiroMovimento() == true && t.getPrimeiroMovimento() == true )
 			{
-				if(){
+				if(true){
 					if(getDirecao(rei, casaDestino) == DIR_ROQ){
 						casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
 						rei.setCasa(casas.get(rei.getCasa().getNumCasa() + DIR_ROQ));
@@ -130,6 +130,13 @@ public class MovimentoRei implements Movimento<Rei>{
 			if(casa.getPeca() == null)
 				return false;
 			return casa.getPeca().isBranco().equals(rei.isBranco());
+		}
+
+		@Override
+		public void andar(Rei e, Casa c, HashMap<Integer, Casa> casas,
+				List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
+			// TODO Auto-generated method stub
+			
 		}
 
 		@Override

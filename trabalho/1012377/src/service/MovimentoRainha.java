@@ -37,7 +37,7 @@ public class MovimentoRainha implements Movimento<Rainha>{
 					if ( isTomadaDePeca(casas.get(rainha.getCasa().getNumCasa() + direcao), casaDestino))
 						tomadaDePeca.tomar(casas, rainha, casas.get(rainha.getCasa().getNumCasa() + direcao), pecas);
 					else if(movimentoValido(rainha, casas.get(rainha.getCasa().getNumCasa() + direcao))){
-						casas.get(rainha.getCasa().getNumCasa()+1).setPeca(null);
+						casas.get(rainha.getCasa().getNumCasa()).setPeca(null);
 						rainha.setCasa(casas.get(rainha.getCasa().getNumCasa() + direcao));
 						casas.get(rainha.getCasa().getNumCasa()+1).setPeca(rainha);
 					}
@@ -100,6 +100,13 @@ public class MovimentoRainha implements Movimento<Rainha>{
 	@Override
 	public boolean isTomadaDePeca(Casa casa, Casa casaDestino) {
 		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
+	}
+
+	@Override
+	public void andar(Rainha e, Casa c, HashMap<Integer, Casa> casas,
+			List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

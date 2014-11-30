@@ -82,6 +82,13 @@ public class MovimentoTorre implements Movimento<Torre>{
 		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
 	}
 
+	@Override
+	public void andar(Torre e, Casa c, HashMap<Integer, Casa> casas,
+			List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
+		// TODO Auto-generated method stub
+		
+	}
+
 //	private void tomar(HashMap<Integer, Casa> casas, Torre p, Casa casaDestino, List<Peca> pecas) {
 //		Peca peca = casaDestino.getPeca();
 //		try{

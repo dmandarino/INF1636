@@ -91,5 +91,12 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
 	}
 
+	@Override
+	public void andar(Cavalo e, Casa c, HashMap<Integer, Casa> casas,
+			List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

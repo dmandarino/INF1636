@@ -85,4 +85,11 @@ public class MovimentoBispo implements Movimento<Bispo>{
 		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
 	}
 
+	@Override
+	public void andar(Bispo e, Casa c, HashMap<Integer, Casa> casas,
+			List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

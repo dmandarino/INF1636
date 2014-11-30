@@ -184,7 +184,7 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 	
 	private void iniciarPecas() {
 		pecasBrancas = criarPecas(true, casas);
-		pecasPretas = criarPecas(false, casas);
+//		pecasPretas = criarPecas(false, casas);
 	}
 
 	private List<Peca> criarPecas(boolean isBranca, HashMap<Integer, Casa> casas) {
@@ -312,16 +312,6 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 		}
 		pecas.add(rainha);
 		
-		if(isBranca){
-		Rainha teste = new Rainha();
-		teste.setTipo(PecaEnum.RAINHA);
-		teste.setBranco(true);
-		teste.setFigura(dama_branco);
-		teste.setCasa(casas.get(35));
-			casas.get(35).setPeca(teste);
-		pecas.add(teste);
-		}
-		
 		Rei rei = new Rei();
 		rei.setTipo(PecaEnum.REI);
 		rei.setBranco(isBranca);
@@ -335,6 +325,16 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 			casas.get(5).setPeca(rei); 
 		}
 		pecas.add(rei);
+
+		if(isBranca){
+			Rainha teste = new Rainha();
+			teste.setTipo(PecaEnum.RAINHA);
+			teste.setBranco(true);
+			teste.setFigura(dama_branco);
+			teste.setCasa(casas.get(35));
+			casas.get(35).setPeca(teste);
+			pecas.add(teste);
+		}
 
 		Long id = 1L;
 		for (Peca peca : pecas) {
