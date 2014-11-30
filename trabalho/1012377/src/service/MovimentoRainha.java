@@ -5,7 +5,6 @@ import java.util.List;
 
 import modelos.Casa;
 import modelos.Peca;
-import modelos.PecaEnum;
 import modelos.Rainha;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
@@ -20,9 +19,10 @@ public class MovimentoRainha implements Movimento<Rainha>{
 	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
-	private Integer[] direcoes = {0, -7, 2, 0, 9, 10, 8, -6, -8};
+	private Integer[] direcoes = {-7, 2, 0, 9, 10, 8, -6, -8};
 	
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
+	private Check check = new Check();
 	
 	@Override
 	public void andar(Rainha rainha, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
@@ -49,8 +49,7 @@ public class MovimentoRainha implements Movimento<Rainha>{
 					}
 					else throw new MoimentoInvalidoException();
 				}
-				if(isCheck(rainha, casas))
-					System.out.println("CHECK!");
+				check.verificaCheck(rainha, casas, direcoes);
 			
 			}else throw new MoimentoInvalidoException();
 			} catch (MoimentoInvalidoException e) {
@@ -117,28 +116,4 @@ public class MovimentoRainha implements Movimento<Rainha>{
 		// TODO Auto-generated method stub
 		
 	}
-
-	private boolean isCheck(Rainha rainha, HashMap<Integer, Casa> casas){
-		for(int i=1; i <= direcoes.length; i++){
-			System.out.println(String.valueOf(i) + " valor: " + String.valueOf(direcoes[i]));
-			if(casas.get(rainha.getCasa().getNumCasa()+direcoes[i]) == null)
-				return false;
-			Casa casa = casas.get(rainha.getCasa().getNumCasa()+direcoes[i]);
-			while(casa.getPeca() != null){
-				if(!isLimiteTabuleiro(casas.get(casa.getNumCasa()))){
-					casa = casas.get(casa.getNumCasa()+direcoes[i]);
-				} 
-				else break;
-			}
-			if(casa.getPeca() != null)
-				if(casa.getPeca().getId() == 16)
-				return true;
-		}
-		return false;
-	}
-
-	private boolean isLimiteTabuleiro(Casa casa) {
-		return casa.getNumCasa()%8 == 0 || casa.getNumCasa()%8 == 7;
-	}
-
 }

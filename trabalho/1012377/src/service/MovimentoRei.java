@@ -21,9 +21,10 @@ public class MovimentoRei implements Movimento<Rei>{
 	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
+	private Integer[] direcoes = {-7, 2, 0, 9, 10, 8, -6, -8};
 
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
-	
+	private Check check = new Check();
 	
 	@Override
 	public void andar(Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
@@ -54,7 +55,7 @@ public class MovimentoRei implements Movimento<Rei>{
 						casas.get(rei.getCasa().getNumCasa()+1).setPeca(rei);
 					}
 					else throw new MoimentoInvalidoException();
-			
+					check.verificaCheck(rei, casas, direcoes);
 			}else throw new MoimentoInvalidoException();
 			} catch (MoimentoInvalidoException e) {
 			} catch (CasaOcupadaException e) {
@@ -152,10 +153,6 @@ public class MovimentoRei implements Movimento<Rei>{
 			return ESQ;
 		}
 
-		private boolean pecaNaoEstaNaCasa(Rei rei, Casa casaDestino) {
-			return !rei.getCasa().getNumCasa().equals(casaDestino.getNumCasa());
-		}
-
 		@Override
 		public boolean movimentoValido(Rei rei, Casa c) {
 			if (Math.abs(c.getX() - rei.getCasa().getX()) > 50)
@@ -182,7 +179,6 @@ public class MovimentoRei implements Movimento<Rei>{
 		@Override
 		public void andar(Rei e, Casa c, HashMap<Integer, Casa> casas,
 				List<Peca> pecas) {
-			// TODO Auto-generated method stub
 			
 		}
 

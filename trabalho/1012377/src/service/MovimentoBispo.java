@@ -15,8 +15,10 @@ public class MovimentoBispo implements Movimento<Bispo>{
 	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
+	private Integer[] direcoes = {10, 8, -6, -8};
 
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
+	private Check check = new Check();
 	
 	@Override
 	public void andar(Bispo bispo, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
@@ -43,7 +45,7 @@ public class MovimentoBispo implements Movimento<Bispo>{
 					}
 					else throw new MoimentoInvalidoException();
 				}
-			
+				check.verificaCheck(bispo, casas, direcoes);
 			}else throw new MoimentoInvalidoException();
 		} catch (MoimentoInvalidoException e) {
 		} catch (CasaOcupadaException e) {

@@ -19,11 +19,13 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 	private static final int DOIS_ESQ_UM_BAIXO = 7;
 	private static final int DOIS_BAIXO_UM_DIR = 18;
 	private static final int DOIS_BAIXO_UM_ESQ = 16;
+	private Integer[] direcoes = {-14, -16, -5, 11, -9, 7, 18, 16};
 	
 	private static final int UMA_CASA = 50;
 	private static final int DUAS_CASAS = 100;
 	
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
+	private Check check = new Check();
 	
 	@Override
 	public void andar(Cavalo cavalo, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
@@ -41,6 +43,7 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 				casas.get(cavalo.getCasa().getNumCasa()+1).setPeca(cavalo);
 			}
 			else throw new MoimentoInvalidoException();
+			check.verificaCheck(cavalo, casas, direcoes);
 		} catch (MoimentoInvalidoException e) {
 		} catch (CasaOcupadaException e) {
 		} catch (Exception e) {

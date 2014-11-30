@@ -1,8 +1,13 @@
 package Exception;
 
+import javax.swing.JOptionPane;
+
 public class CasaOcupadaException extends Exception {
+	
+	private JOptionPane jOptionPane = new JOptionPane();
+	
 	public CasaOcupadaException() {
-		// TODO Auto-generated constructor stub
+		jOptionPane.showMessageDialog(null, "CASA JÁ ESTÁ OCUPADA!");
 		System.out.println("CasaEstaOcupada");
 	}
 }

@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Exception.CasaOcupadaException;
@@ -40,6 +42,7 @@ public class XadrezPainel extends JPanel
 	private Casa casaClicada = new Casa();
 	private Casa casaDestino = new Casa();
 	private Object xadrezFrame;
+	private JOptionPane jOptionPane = new JOptionPane();
 
 	
 	public XadrezPainel() {
@@ -125,7 +128,22 @@ public class XadrezPainel extends JPanel
 			  mov.andar (peca, casaDestino, casas, pecasPretas);
 		  else 
 			  mov.andar (peca, casaDestino, casas, pecasBrancas);
+		  jogoTerminou(pecasPretas, pecasBrancas);
     }
+
+	private void jogoTerminou(List<Peca> pretas, List<Peca> brancas) {
+		boolean terminou = true;
+		for (Peca branca : brancas) {
+			if(branca.getTipo().equals(PecaEnum.REI))
+				terminou = false;
+		}
+		for (Peca preta : pretas) {
+			if(preta.getTipo().equals(PecaEnum.REI))
+				terminou = false;
+		}
+		if(terminou)
+			jOptionPane.showMessageDialog(null, "O JOGO CABOU!");
+	}
 	
 	private void desenhaPecas(Graphics g) {
 		for (Peca peca : pecasBrancas) {

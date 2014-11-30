@@ -25,8 +25,10 @@ public class MovimentoPeao implements Movimento<Peao>{
 	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
+	private Integer[] direcoes = {-6, -8};
 	
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
+	private Check check = new Check();
 	private Image imageBranca;
 	private Image imagePreta;
 	
@@ -41,6 +43,7 @@ public class MovimentoPeao implements Movimento<Peao>{
 			if ( isTomadaDePeca(casas.get(p.getCasa().getNumCasa() + direcao), casaDestino) && direcaoCerta(direcao, p)){
 				tomadaDePeca.tomar(casas, p, casas.get(p.getCasa().getNumCasa() + direcao), pecasAdversarias);
 				isPromocaoPeao(p, casas, pecasAmigas);
+				check.verificaCheck(p, casas, direcoes);
 				return;
 			}
 			
@@ -58,7 +61,7 @@ public class MovimentoPeao implements Movimento<Peao>{
 					}
 					else throw new MoimentoInvalidoException();
 				}
-			
+				check.verificaCheck(p, casas, direcoes);
 			}else throw new MoimentoInvalidoException();
 		} catch (MoimentoInvalidoException e) {
 		} catch (CasaOcupadaException e) {
