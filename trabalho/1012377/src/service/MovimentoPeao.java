@@ -21,6 +21,10 @@ public class MovimentoPeao implements Movimento<Peao>{
 
 	private static final int CIMA = -7;
 	private static final int BAIXO = 9;
+	private static final int BAIXO_DIR = 10;
+	private static final int BAIXO_ESQ = 8;
+	private static final int CIMA_DIR = -6;
+	private static final int CIMA_ESQ = -8;
 	
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
 	private Image imageBranca;
@@ -34,13 +38,15 @@ public class MovimentoPeao implements Movimento<Peao>{
 			
 			Integer direcao = getDirecao(p, casaDestino);
 			
+			if ( isTomadaDePeca(casas.get(p.getCasa().getNumCasa() + direcao), casaDestino) && direcaoCerta(direcao, p)){
+				tomadaDePeca.tomar(casas, p, casas.get(p.getCasa().getNumCasa() + direcao), pecasAdversarias);
+				return;
+			}
+			
 			if(movimentoValido(p, casaDestino)){
 				while(pecaNaoEstaNaCasa(p, casaDestino)){
 					if ( isCasaOcupadaMesmaCor(casas.get(p.getCasa().getNumCasa() + direcao), p))
 						throw new CasaOcupadaException();
-					
-					if ( isTomadaDePeca(casas.get(p.getCasa().getNumCasa() + direcao), casaDestino))
-						tomadaDePeca.tomar(casas, p, casas.get(p.getCasa().getNumCasa() + direcao), pecasAdversarias);
 					
 					else if(movimentoValido(p, casas.get(p.getCasa().getNumCasa() + direcao))){
 						p.setPrimeiroMovimento(false);
@@ -86,21 +92,40 @@ public class MovimentoPeao implements Movimento<Peao>{
 		return casa.getPeca().isBranco().equals(peao.isBranco());
 	}
 
+	
 	@Override
 	public boolean isTomadaDePeca(Casa casa, Casa casaDestino) {
 		return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
 	}
 
+	private boolean direcaoCerta(Integer direcao, Peao p) {
+		return (p.isBranco() && direcao.equals(CIMA_DIR)) || (p.isBranco() && direcao.equals(CIMA_ESQ)) || 
+				(!p.isBranco() && direcao.equals(BAIXO_DIR)) || (!p.isBranco() && direcao.equals(BAIXO_ESQ));
+	}
+	
+	
 	private boolean isMovDiagonal(Casa casaDestino, Peao p) {
-		return !casaDestino.getX().equals(p.getCasa().getX()) && !casaDestino.getY().equals(p.getCasa().getY()); 
+		return (Math.abs(casaDestino.getX() - p.getCasa().getX()) == Math.abs(casaDestino.getY() - p.getCasa().getY())); 
 	}
 	
 	private int getDirecao(Peao p, Casa casaDestino) {
-			if(casaDestino.getY() > p.getCasa().getY() && !p.isBranco() ){
-				return BAIXO;
-			} else {
-				return CIMA;
-			}
+		if (isMovDiagonal(casaDestino, p)){
+				if(casaDestino.getX() > p.getCasa().getX()){
+					if(casaDestino.getY() < p.getCasa().getY() ){
+						return CIMA_DIR;
+					} else {
+						return BAIXO_DIR;
+					}
+				} else if (casaDestino.getY() < p.getCasa().getY()){
+					return CIMA_ESQ;
+				}
+				return BAIXO_ESQ;
+		} 
+		if(casaDestino.getY() > p.getCasa().getY() && !p.isBranco() ){
+			return BAIXO;
+		} else {
+			return CIMA;
+		}
 	}
 
 	private void isPromocaoPeao(Peao p, HashMap<Integer, Casa> casas, List<Peca> pecas){
