@@ -123,8 +123,7 @@ public class XadrezPainel extends JPanel
 		  Movimento mov = null;
 		  switch (peca.getTipo()) {
 			case PEAO:
-				if (peca.isBranco())
-				mov = new MovimentoPeao(dama_branco);
+				mov = new MovimentoPeao();
 				break;
 		    case TORRE:
 				mov = new MovimentoTorre();

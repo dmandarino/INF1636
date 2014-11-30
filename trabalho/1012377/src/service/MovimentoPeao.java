@@ -9,22 +9,18 @@ import modelos.Peao;
 import modelos.Peca;
 import modelos.PecaEnum;
 import modelos.Rainha;
-import modelos.Rei;
+import modelos.Torre;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
 import Exception.RemocaoComErroException;
 
 public class MovimentoPeao implements Movimento<Peao>{
 
-	public static final int CASA_VERT = 8;
-	public static final int CASA_HOR = 1;
+	private static final int CIMA = -7;
+	private static final int BAIXO = 9;
 	
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
 	private Image image;
-	
-	public MovimentoPeao(Image image) {
-		this.image = image;
-	}
 	
 	@Override
 	public void andar(Peao p, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
@@ -34,31 +30,39 @@ public class MovimentoPeao implements Movimento<Peao>{
 			
 			Integer direcao = getDirecao(p, casaDestino);
 			
-			if ( isTomadaDePeca(casas.get(p.getCasa().getNumCasa() + direcao), casaDestino))
-				tomadaDePeca.tomar(casas, p, casas.get(p.getCasa().getNumCasa() + direcao), pecas);
-			if( movimentoValido(p, casaDestino)){
-				casas.get(p.getCasa().getNumCasa()).setPeca(null);
-				p.setCasa(casaDestino);
-				casas.get(casaDestino.getNumCasa()).setPeca(p);
-				isPromocaoPeao(p, casas, pecas);
-			} 
-			else
-				throw new MoimentoInvalidoException();
-		} catch(MoimentoInvalidoException e){
-			
+			if(movimentoValido(p, casaDestino)){
+					if ( isCasaOcupadaMesmaCor(casas.get(p.getCasa().getNumCasa() + direcao), p))
+						throw new CasaOcupadaException();
+					
+					if ( isTomadaDePeca(casas.get(p.getCasa().getNumCasa() + direcao), casaDestino))
+						tomadaDePeca.tomar(casas, p, casas.get(p.getCasa().getNumCasa() + direcao), pecas);
+//						tomar(casas, t, casas.get(t.getCasa().getNumCasa() + direcao), pecas);
+					
+					else if(movimentoValido(p, casas.get(p.getCasa().getNumCasa() + direcao))){
+						casas.get(p.getCasa().getNumCasa()+1).setPeca(null);
+						p.setCasa(casas.get(p.getCasa().getNumCasa() + direcao));
+						casas.get(p.getCasa().getNumCasa()+1).setPeca(p);
+					}
+					else throw new MoimentoInvalidoException();
+				
+			}else throw new MoimentoInvalidoException();
+		} catch (MoimentoInvalidoException e) {
 		} catch (CasaOcupadaException e) {
-			
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 
-	public boolean movimentoValido(Peao p, Casa casaDestino) {
-		if(p.GetPrimeiroMovimento())
-			return isPrimeiroMovimentoValidoBranco(p, casaDestino) || isPrimeiroMovimentoValidoPreto(p, casaDestino); 
-		return isPecaBrancaECasaValida(p, casaDestino) || isPecaPretaECasaValida(p, casaDestino);
-	}
+//	public boolean movimentoValido(Peao p, Casa casaDestino) {
+//		if(p.GetPrimeiroMovimento())
+//			return isPrimeiroMovimentoValidoBranco(p, casaDestino) || isPrimeiroMovimentoValidoPreto(p, casaDestino); 
+//		return isPecaBrancaECasaValida(p, casaDestino) || isPecaPretaECasaValida(p, casaDestino);
+//	}
 
+	public boolean movimentoValido(Peao p, Casa c) {
+		return p.getCasa().getX().equals(c.getX()); 
+	}
+	
 	@Override
 	public boolean isCasaOcupadaMesmaCor(Casa casa, Peao peao) {
 		return casa.getPeca().isBranco().equals(peao.isBranco());
@@ -70,38 +74,34 @@ public class MovimentoPeao implements Movimento<Peao>{
 	}
 
 
-	private boolean isPrimeiroMovimentoValidoPreto(Peao p, Casa casaDestino) {
-		return (casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() + 2*CASA_VERT) && p.isBranco()) || isPecaBrancaECasaValida(p, casaDestino);
-	}
-
-	private boolean isPrimeiroMovimentoValidoBranco(Peao p, Casa casaDestino) {
-		return (casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() - 2*CASA_VERT) && p.isBranco()) || isPecaBrancaECasaValida(p, casaDestino);
-	}
-
-	private boolean isPecaPretaECasaValida(Peao p, Casa casaDestino) {
-		return casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() + CASA_VERT) && !p.isBranco();
-	}
-
-	private boolean isPecaBrancaECasaValida(Peao p, Casa casaDestino) {
-		return casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() - CASA_VERT) && p.isBranco();
-	}
+//	private boolean isPrimeiroMovimentoValidoPreto(Peao p, Casa casaDestino) {
+//		return (casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() + 2*CASA_VERT) && p.isBranco()) || isPecaBrancaECasaValida(p, casaDestino);
+//	}
+//
+//	private boolean isPrimeiroMovimentoValidoBranco(Peao p, Casa casaDestino) {
+//		return (casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() - 2*CASA_VERT) && p.isBranco()) || isPecaBrancaECasaValida(p, casaDestino);
+//	}
+//
+//	private boolean isPecaPretaECasaValida(Peao p, Casa casaDestino) {
+//		return casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() + CASA_VERT) && !p.isBranco();
+//	}
+//
+//	private boolean isPecaBrancaECasaValida(Peao p, Casa casaDestino) {
+//		return casaDestino.getNumCasa().equals(p.getCasa().getNumCasa() - CASA_VERT) && p.isBranco();
+//	}
 	
 	private boolean isMovDiagonal(Casa casaDestino, Peao p) {
 		return !casaDestino.getX().equals(p.getCasa().getX()) && !casaDestino.getY().equals(p.getCasa().getY()); 
 	}
 	
-	private Integer getDirecao(Peao p, Casa casaDestino) {
-		if (isMovDiagonal(casaDestino, p)){
-			if(casaDestino.getX() > p.getCasa().getX()){
-				if(casaDestino.getY() < p.getCasa().getY() )
-					return 1;
-				else
-					return 2;
+	private int getDirecao(Peao p, Casa casaDestino) {
+			if(casaDestino.getY() > p.getCasa().getY() && !p.isBranco() ){
+				return BAIXO;
+			} else {
+				return CIMA;
 			}
-			
-		}
-		return null; 
 	}
+
 				
 	
 	private void isPromocaoPeao(Peao p, HashMap<Integer, Casa> casas, List<Peca> pecas){
@@ -131,5 +131,4 @@ public class MovimentoPeao implements Movimento<Peao>{
 
 		}
 	}
-
 }
