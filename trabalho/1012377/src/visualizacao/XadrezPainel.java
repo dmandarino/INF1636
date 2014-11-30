@@ -12,6 +12,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Exception.CasaOcupadaException;
+import Exception.CasaVaziaException;
 import modelos.Bispo;
 import modelos.Casa;
 import modelos.Cavalo;
@@ -114,8 +116,11 @@ public class XadrezPainel extends JPanel
 		  casaDestino = casas.get(click);
 		  System.out.println(casaClicada.getNumCasa().toString() + "  " + casaDestino.getNumCasa().toString());
 		  Peca peca = casaClicada.getPeca();
-		  
-		  
+		  if(peca == null){
+			  System.out.println("Casa Vazia");
+			  return;
+		  }
+			 
 		  Movimento mov = null;
 		  switch (peca.getTipo()) {
 			case PEAO:
@@ -140,7 +145,6 @@ public class XadrezPainel extends JPanel
 			  mov.andar (peca, casaDestino, casas, pecasPretas);
 		  else 
 			  mov.andar (peca, casaDestino, casas, pecasBrancas);
-		  repaint();
     }
 	
 	
