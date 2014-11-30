@@ -6,7 +6,6 @@ import java.util.List;
 import modelos.Casa;
 import modelos.Peca;
 import modelos.Rei;
-import modelos.Torre;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
 
@@ -16,7 +15,7 @@ public class MovimentoRei implements Movimento<Rei>{
 	private static final int DIR = 2;
 	private static final int ESQ = 0;
 	private static final int DIR_ROQ = 3;
-	private static final int ESQ_ROQ = 1;
+	private static final int ESQ_ROQ = -1;
 	private static final int BAIXO = 9;
 	private static final int BAIXO_DIR = 10;
 	private static final int BAIXO_ESQ = 8;
@@ -27,7 +26,7 @@ public class MovimentoRei implements Movimento<Rei>{
 	
 	
 	@Override
-	public void andar(Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas) {
+	public void andar(Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
 		try{
 			if ( isCasaOcupadaMesmaCor(casaDestino, rei))
 				throw new CasaOcupadaException();
@@ -36,11 +35,13 @@ public class MovimentoRei implements Movimento<Rei>{
 
 			if(movimentoValido(rei, casaDestino)){
 				while(pecaNaoEstaNaCasa(rei, casaDestino)){
+					if(isRoque (rei, casaDestino))
+						executaRoque (rei, casaDestino, casas, pecasAmigas);
 					if ( isCasaOcupadaMesmaCor(casas.get(rei.getCasa().getNumCasa() + direcao), rei))
 						throw new CasaOcupadaException();
 
 					if ( isTomadaDePeca(casas.get(rei.getCasa().getNumCasa() + direcao), casaDestino))
-						tomadaDePeca.tomar(casas, rei, casas.get(rei.getCasa().getNumCasa() + direcao), pecas);
+						tomadaDePeca.tomar(casas, rei, casas.get(rei.getCasa().getNumCasa() + direcao), pecasAdversarias);
 					
 					else if(movimentoValido(rei, casas.get(rei.getCasa().getNumCasa() + direcao))){
 						rei.setPrimeiroMovimento(false);
@@ -59,33 +60,66 @@ public class MovimentoRei implements Movimento<Rei>{
 			}
 		}
 
-		private void isRoque (Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas){
-			Torre t = new Torre();
-			if (rei.getPrimeiroMovimento() == true && t.getPrimeiroMovimento() == true )
+		private void executaRoque (Rei rei, Casa casaDestino, HashMap<Integer, Casa> casas, List<Peca> pecas){
+		
+			Peca t;
+			if(getDirecao(rei, casaDestino) == DIR)
+				t = pecas.get(9);
+			else
+				t = pecas.get(8);
+					
+			if (rei.getPrimeiroMovimento() && t.getPrimeiroMovimento())
 			{
-				if(true){
-					if(getDirecao(rei, casaDestino) == DIR_ROQ){
+				if(isCaminhoLivre(rei, t, casas, getDirecao(rei, casaDestino))){
+					if(getDirecao(rei, casaDestino) == DIR){
 						casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
 						rei.setCasa(casas.get(rei.getCasa().getNumCasa() + DIR_ROQ));
 						casas.get(rei.getCasa().getNumCasa()+1).setPeca(rei);
 						
 						casas.get(t.getCasa().getNumCasa()+1).setPeca(null);
-						t.setCasa(casas.get(t.getCasa().getNumCasa() + 1));
+						t.setCasa(casas.get(t.getCasa().getNumCasa()-1));
 						casas.get(t.getCasa().getNumCasa()+1).setPeca(t);
 					}
-				}
+				
 					else{
 						casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
 						rei.setCasa(casas.get(rei.getCasa().getNumCasa() + ESQ_ROQ));
 						casas.get(rei.getCasa().getNumCasa()+1).setPeca(rei);
 						
 						casas.get(t.getCasa().getNumCasa()+1).setPeca(null);
-						t.setCasa(casas.get(t.getCasa().getNumCasa() + 4));
+						t.setCasa(casas.get(t.getCasa().getNumCasa()+4));
 						casas.get(t.getCasa().getNumCasa()+1).setPeca(t);
 					}
+				}
 				
 			}
 		}
+		
+		private boolean isRoque (Rei rei, Casa casaDestino){
+			return Math.abs(casaDestino.getX() - rei.getCasa().getX()) == 100;
+		}
+		
+		private boolean isCaminhoLivre(Rei rei, Peca t, HashMap<Integer, Casa> casas, int direcao){
+			Casa casa = rei.getCasa();
+			if (direcao == DIR){
+				int cont = 1;
+				while(!casa.getNumCasa().equals(t.getCasa().getNumCasa())){
+					if(casas.get(casa.getNumCasa()+cont).getPeca() != null)
+						return false;
+				cont++;
+				}
+				return true;
+			}
+			
+			int cont = 0;
+			while(!casa.getNumCasa().equals(t.getCasa().getNumCasa())){
+				if(casas.get(casa.getNumCasa()+cont).getPeca() != null)
+					return false;
+			cont--;
+			}
+			return true;
+		} 
+		
 		private boolean isMovDiagonal(Casa casaDestino, Rei rei) {
 			return !casaDestino.getX().equals(rei.getCasa().getX()) && !casaDestino.getY().equals(rei.getCasa().getY()); 
 		}
@@ -132,16 +166,17 @@ public class MovimentoRei implements Movimento<Rei>{
 			return casa.getPeca().isBranco().equals(rei.isBranco());
 		}
 
-		@Override
-		public void andar(Rei e, Casa c, HashMap<Integer, Casa> casas,
-				List<Peca> pecasAdversarias, List<Peca> pecasAmigas) {
-			// TODO Auto-generated method stub
-			
-		}
 
 		@Override
 		public boolean isTomadaDePeca(Casa casa, Casa casaDestino) {
 			return casa.getPeca() != null && casa.getNumCasa().equals(casaDestino.getNumCasa());
+		}
+
+		@Override
+		public void andar(Rei e, Casa c, HashMap<Integer, Casa> casas,
+				List<Peca> pecas) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	}

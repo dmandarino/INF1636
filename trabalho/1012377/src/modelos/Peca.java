@@ -9,6 +9,7 @@ public class Peca {
 	private PecaEnum tipo;
 	private Image figura;
 	private Boolean isBranco;
+	private Boolean primeiroMovimento;
 	private Long id;
 	
 
@@ -30,6 +31,14 @@ public class Peca {
 
 	public Casa getCasa() {
 		return casa;
+	}
+	
+	public void setPrimeiroMovimento(boolean primeiroMovimento) {
+		this.primeiroMovimento = primeiroMovimento;
+	}
+	
+	public boolean getPrimeiroMovimento() {
+		 return primeiroMovimento;
 	}
 
 	public void setCasa(Casa casa) {
@@ -59,6 +68,4 @@ public class Peca {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
 }
