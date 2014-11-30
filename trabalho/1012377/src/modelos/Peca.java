@@ -9,7 +9,7 @@ public class Peca {
 	private PecaEnum tipo;
 	private Image figura;
 	private Boolean isBranco;
-	private Boolean primeiroMovimento;
+	private Boolean primeiroMovimento = true;
 	private Long id;
 	
 
@@ -37,7 +37,7 @@ public class Peca {
 		this.primeiroMovimento = primeiroMovimento;
 	}
 	
-	public boolean getPrimeiroMovimento() {
+	public boolean isPrimeiroMovimento() {
 		 return primeiroMovimento;
 	}
 

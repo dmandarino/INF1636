@@ -6,13 +6,13 @@ public class Rei extends Peca{
 	public Rei (){
 		super();
 	}
-	private boolean primeiroMovimento;
+	private boolean primeiroMovimento = true;
 
 	public void setPrimeiroMovimento(boolean primeiroMovimento) {
 		this.primeiroMovimento = primeiroMovimento;
 	}
 	
-	public boolean getPrimeiroMovimento() {
+	public boolean isPrimeiroMovimento() {
 		 return primeiroMovimento;
 	}
 	

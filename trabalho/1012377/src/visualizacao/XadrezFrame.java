@@ -184,7 +184,7 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 	
 	private void iniciarPecas() {
 		pecasBrancas = criarPecas(true, casas);
-//		pecasPretas = criarPecas(false, casas);
+		pecasPretas = criarPecas(false, casas);
 	}
 
 	private List<Peca> criarPecas(boolean isBranca, HashMap<Integer, Casa> casas) {
@@ -238,79 +238,79 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 			pecas.add(t);
 		}
 		
-//		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
-//			Cavalo c = new Cavalo();
-//			c.setTipo(PecaEnum.CAVALO);
-//			c.setBranco(isBranca);
-//			if(isBranca){
-//				c.setFigura(cavalo_branco);
-//				if(isPrimeiro){
-//					c.setCasa(casas.get(58));
-//					casas.get(58).setPeca(c);
-//					isPrimeiro = false;
-//				} else {
-//					c.setCasa(casas.get(63));
-//					casas.get(63).setPeca(c);
-//					isPrimeiro = true;
-//				}
-//			} else {
-//				c.setFigura(cavalo_preto);
-//				if(isPrimeiro){
-//					c.setCasa(casas.get(2));
-//					casas.get(2).setPeca(c);
-//					isPrimeiro = false;
-//				} else {
-//					c.setCasa(casas.get(7));
-//					casas.get(7).setPeca(c);
-//					isPrimeiro = true;
-//				}
-//			}
-//			pecas.add(c);
-//		}
-//		
-//		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
-//			Bispo b = new Bispo();
-//			b.setTipo(PecaEnum.BISPO);
-//			b.setBranco(isBranca);
-//			if(isBranca){
-//				b.setFigura(bispo_branco);
-//				if(isPrimeiro){
-//					b.setCasa(casas.get(59));
-//					casas.get(59).setPeca(b);
-//					isPrimeiro = false;
-//				} else {
-//					b.setCasa(casas.get(62));
-//					casas.get(62).setPeca(b);
-//					isPrimeiro = true;
-//				}
-//			} else {
-//				b.setFigura(bispo_preto);
-//				if(isPrimeiro){
-//					b.setCasa(casas.get(3));
-//					casas.get(3).setPeca(b);
-//					isPrimeiro = false;
-//				} else {
-//					b.setCasa(casas.get(6));
-//					casas.get(6).setPeca(b);
-//					isPrimeiro = true;
-//				}
-//			}
-//			pecas.add(b);
-//		}
-//		
-//		Rainha rainha = new Rainha();
-//		rainha.setTipo(PecaEnum.RAINHA);
-//		rainha.setBranco(isBranca);
-//		if(isBranca){
-//			rainha.setFigura(dama_branco);
-//			rainha.setCasa(casas.get(60));
-//			casas.get(60).setPeca(rainha);
-//		} else {
-//			rainha.setFigura(dama_preto);
-//			rainha.setCasa(casas.get(4));
-//			casas.get(4).setPeca(rainha);
-//		}
-//		pecas.add(rainha);
+		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
+			Cavalo c = new Cavalo();
+			c.setTipo(PecaEnum.CAVALO);
+			c.setBranco(isBranca);
+			if(isBranca){
+				c.setFigura(cavalo_branco);
+				if(isPrimeiro){
+					c.setCasa(casas.get(58));
+					casas.get(58).setPeca(c);
+					isPrimeiro = false;
+				} else {
+					c.setCasa(casas.get(63));
+					casas.get(63).setPeca(c);
+					isPrimeiro = true;
+				}
+			} else {
+				c.setFigura(cavalo_preto);
+				if(isPrimeiro){
+					c.setCasa(casas.get(2));
+					casas.get(2).setPeca(c);
+					isPrimeiro = false;
+				} else {
+					c.setCasa(casas.get(7));
+					casas.get(7).setPeca(c);
+					isPrimeiro = true;
+				}
+			}
+			pecas.add(c);
+		}
+		
+		for (int i = 0; i < NUM_PECAS_NAO_REAIS; i++) {
+			Bispo b = new Bispo();
+			b.setTipo(PecaEnum.BISPO);
+			b.setBranco(isBranca);
+			if(isBranca){
+				b.setFigura(bispo_branco);
+				if(isPrimeiro){
+					b.setCasa(casas.get(59));
+					casas.get(59).setPeca(b);
+					isPrimeiro = false;
+				} else {
+					b.setCasa(casas.get(62));
+					casas.get(62).setPeca(b);
+					isPrimeiro = true;
+				}
+			} else {
+				b.setFigura(bispo_preto);
+				if(isPrimeiro){
+					b.setCasa(casas.get(3));
+					casas.get(3).setPeca(b);
+					isPrimeiro = false;
+				} else {
+					b.setCasa(casas.get(6));
+					casas.get(6).setPeca(b);
+					isPrimeiro = true;
+				}
+			}
+			pecas.add(b);
+		}
+		
+		Rainha rainha = new Rainha();
+		rainha.setTipo(PecaEnum.RAINHA);
+		rainha.setBranco(isBranca);
+		if(isBranca){
+			rainha.setFigura(dama_branco);
+			rainha.setCasa(casas.get(60));
+			casas.get(60).setPeca(rainha);
+		} else {
+			rainha.setFigura(dama_preto);
+			rainha.setCasa(casas.get(4));
+			casas.get(4).setPeca(rainha);
+		}
+		pecas.add(rainha);
 		
 		Rei rei = new Rei();
 		rei.setTipo(PecaEnum.REI);
@@ -325,16 +325,6 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 			casas.get(5).setPeca(rei); 
 		}
 		pecas.add(rei);
-
-		if(isBranca){
-			Rainha teste = new Rainha();
-			teste.setTipo(PecaEnum.RAINHA);
-			teste.setBranco(true);
-			teste.setFigura(dama_branco);
-			teste.setCasa(casas.get(35));
-			casas.get(35).setPeca(teste);
-			pecas.add(teste);
-		}
 
 		Long id = 1L;
 		for (Peca peca : pecas) {

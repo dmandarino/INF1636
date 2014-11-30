@@ -33,10 +33,14 @@ public class MovimentoRei implements Movimento<Rei>{
 
 			Integer direcao = getDirecao(rei, casaDestino);
 
+			if(isRoque (rei, casaDestino)){
+				executaRoque (rei, casaDestino, casas, pecasAmigas);
+				rei.setPrimeiroMovimento(false);
+				return;
+			}
+
+			rei.setPrimeiroMovimento(false);
 			if(movimentoValido(rei, casaDestino)){
-				while(pecaNaoEstaNaCasa(rei, casaDestino)){
-					if(isRoque (rei, casaDestino))
-						executaRoque (rei, casaDestino, casas, pecasAmigas);
 					if ( isCasaOcupadaMesmaCor(casas.get(rei.getCasa().getNumCasa() + direcao), rei))
 						throw new CasaOcupadaException();
 
@@ -50,7 +54,6 @@ public class MovimentoRei implements Movimento<Rei>{
 						casas.get(rei.getCasa().getNumCasa()+1).setPeca(rei);
 					}
 					else throw new MoimentoInvalidoException();
-				}
 			
 			}else throw new MoimentoInvalidoException();
 			} catch (MoimentoInvalidoException e) {
@@ -68,9 +71,10 @@ public class MovimentoRei implements Movimento<Rei>{
 			else
 				t = pecas.get(8);
 					
-			if (rei.getPrimeiroMovimento() && t.getPrimeiroMovimento())
+			if (rei.isPrimeiroMovimento() && t.isPrimeiroMovimento())
 			{
 				if(isCaminhoLivre(rei, t, casas, getDirecao(rei, casaDestino))){
+					t.setPrimeiroMovimento(false);
 					if(getDirecao(rei, casaDestino) == DIR){
 						casas.get(rei.getCasa().getNumCasa()+1).setPeca(null);
 						rei.setCasa(casas.get(rei.getCasa().getNumCasa() + DIR_ROQ));
@@ -96,23 +100,22 @@ public class MovimentoRei implements Movimento<Rei>{
 		}
 		
 		private boolean isRoque (Rei rei, Casa casaDestino){
-			return Math.abs(casaDestino.getX() - rei.getCasa().getX()) == 100;
+			return Math.abs(casaDestino.getX() - rei.getCasa().getX()) == 100 && rei.isPrimeiroMovimento();
 		}
 		
 		private boolean isCaminhoLivre(Rei rei, Peca t, HashMap<Integer, Casa> casas, int direcao){
 			Casa casa = rei.getCasa();
 			if (direcao == DIR){
 				int cont = 1;
-				while(!casa.getNumCasa().equals(t.getCasa().getNumCasa())){
+				while(!(casa.getNumCasa()+cont != t.getCasa().getNumCasa())){
 					if(casas.get(casa.getNumCasa()+cont).getPeca() != null)
 						return false;
 				cont++;
 				}
 				return true;
 			}
-			
-			int cont = 0;
-			while(!casa.getNumCasa().equals(t.getCasa().getNumCasa())){
+			Integer cont = 0;
+			while(!(casa.getNumCasa()+cont != t.getCasa().getNumCasa())){
 				if(casas.get(casa.getNumCasa()+cont).getPeca() != null)
 					return false;
 			cont--;
@@ -155,6 +158,10 @@ public class MovimentoRei implements Movimento<Rei>{
 
 		@Override
 		public boolean movimentoValido(Rei rei, Casa c) {
+			if (Math.abs(c.getX() - rei.getCasa().getX()) > 50)
+				return false;
+			if (Math.abs(c.getY() - rei.getCasa().getY()) > 50)
+				return false;
 			return rei.getCasa().getX().equals(c.getX()) || rei.getCasa().getY().equals(c.getY()) ||
 					(Math.abs(c.getX() - rei.getCasa().getX()) == Math.abs(c.getY() - rei.getCasa().getY()));
 		}

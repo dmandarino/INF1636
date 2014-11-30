@@ -27,28 +27,32 @@ public class MovimentoRainha implements Movimento<Rainha>{
 		try{
 			if ( isCasaOcupadaMesmaCor(casaDestino, rainha))
 				throw new CasaOcupadaException();
-			
+
 			Integer direcao = getDirecao(rainha, casaDestino);
-			
+
 			if(movimentoValido(rainha, casaDestino)){
 				while(pecaNaoEstaNaCasa(rainha, casaDestino)){
 					if ( isCasaOcupadaMesmaCor(casas.get(rainha.getCasa().getNumCasa() + direcao), rainha))
 						throw new CasaOcupadaException();
+
 					if ( isTomadaDePeca(casas.get(rainha.getCasa().getNumCasa() + direcao), casaDestino))
 						tomadaDePeca.tomar(casas, rainha, casas.get(rainha.getCasa().getNumCasa() + direcao), pecas);
+					
 					else if(movimentoValido(rainha, casas.get(rainha.getCasa().getNumCasa() + direcao))){
-						casas.get(rainha.getCasa().getNumCasa()).setPeca(null);
+						rainha.setPrimeiroMovimento(false);
+						casas.get(rainha.getCasa().getNumCasa()+1).setPeca(null);
 						rainha.setCasa(casas.get(rainha.getCasa().getNumCasa() + direcao));
 						casas.get(rainha.getCasa().getNumCasa()+1).setPeca(rainha);
 					}
 					else throw new MoimentoInvalidoException();
 				}
+			
 			}else throw new MoimentoInvalidoException();
-		} catch (MoimentoInvalidoException e) {
-		} catch (CasaOcupadaException e) {
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+			} catch (MoimentoInvalidoException e) {
+			} catch (CasaOcupadaException e) {
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 	}
 
 	private boolean pecaNaoEstaNaCasa(Rainha rainha, Casa casaDestino) {
