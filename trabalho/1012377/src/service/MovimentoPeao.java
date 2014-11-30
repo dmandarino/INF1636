@@ -94,12 +94,13 @@ public class MovimentoPeao implements Movimento<Peao>{
 		if (isMovDiagonal(casaDestino, p)){
 			if(casaDestino.getX() > p.getCasa().getX()){
 				if(casaDestino.getY() < p.getCasa().getY() )
-					return CIMA_DIR;
+					return 1;
 				else
-					return CIMA_ESQ;
+					return 2;
 			}
 			
-		} 
+		}
+		return null; 
 	}
 				
 	

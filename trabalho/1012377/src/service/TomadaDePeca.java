@@ -15,10 +15,9 @@ public class TomadaDePeca{
 			pecas.remove(casaDestino.getPeca());
 			if(pecas.contains(peca))
 				throw new RemocaoComErroException();
-			Casa teste = casas.get(p.getCasa().getNumCasa());
-			teste.setPeca(null);
+			casas.get(p.getCasa().getNumCasa()).setPeca(null);
 			p.setCasa(casas.get(casaDestino.getNumCasa()+1));
-			casas.get(p.getCasa().getNumCasa()).setPeca(p);
+			casas.get(p.getCasa().getNumCasa()+1).setPeca(p);
 		}catch(RemocaoComErroException e) {
 		}catch(Exception e) {
 			System.out.println(e);
