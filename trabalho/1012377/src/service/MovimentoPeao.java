@@ -41,7 +41,6 @@ public class MovimentoPeao implements Movimento<Peao>{
 					
 					if ( isTomadaDePeca(casas.get(p.getCasa().getNumCasa() + direcao), casaDestino))
 						tomadaDePeca.tomar(casas, p, casas.get(p.getCasa().getNumCasa() + direcao), pecasAdversarias);
-//						tomar(casas, t, casas.get(t.getCasa().getNumCasa() + direcao), pecas);
 					
 					else if(movimentoValido(p, casas.get(p.getCasa().getNumCasa() + direcao))){
 						p.setPrimeiroMovimento(false);
