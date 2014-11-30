@@ -27,18 +27,23 @@ public class MovimentoBispo implements Movimento<Bispo>{
 			Integer direcao = getDirecao(bispo, casaDestino);
 			
 			if(movimentoValido(bispo, casaDestino)){
+				bispo.setPrimeiroMovimento(false);
 				while(pecaNaoEstaNaCasa(bispo, casaDestino)){
 					if ( isCasaOcupadaMesmaCor(casas.get(bispo.getCasa().getNumCasa() + direcao), bispo))
 						throw new CasaOcupadaException();
+
 					if ( isTomadaDePeca(casas.get(bispo.getCasa().getNumCasa() + direcao), casaDestino))
 						tomadaDePeca.tomar(casas, bispo, casas.get(bispo.getCasa().getNumCasa() + direcao), pecas);
+					
 					else if(movimentoValido(bispo, casas.get(bispo.getCasa().getNumCasa() + direcao))){
+						bispo.setPrimeiroMovimento(false);
 						casas.get(bispo.getCasa().getNumCasa()+1).setPeca(null);
 						bispo.setCasa(casas.get(bispo.getCasa().getNumCasa() + direcao));
 						casas.get(bispo.getCasa().getNumCasa()+1).setPeca(bispo);
 					}
 					else throw new MoimentoInvalidoException();
 				}
+			
 			}else throw new MoimentoInvalidoException();
 		} catch (MoimentoInvalidoException e) {
 		} catch (CasaOcupadaException e) {

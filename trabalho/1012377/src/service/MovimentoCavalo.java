@@ -35,6 +35,7 @@ public class MovimentoCavalo implements Movimento<Cavalo>{
 			if ( isTomadaDePeca(casas.get(cavalo.getCasa().getNumCasa() + direcao), casaDestino))
 				tomadaDePeca.tomar(casas, cavalo, casas.get(cavalo.getCasa().getNumCasa() + direcao), pecas);
 			else if(movimentoValido(cavalo, casaDestino)){
+				cavalo.setPrimeiroMovimento(false);
 				casas.get(cavalo.getCasa().getNumCasa()+1).setPeca(null);
 				cavalo.setCasa(casas.get(cavalo.getCasa().getNumCasa() + direcao));
 				casas.get(cavalo.getCasa().getNumCasa()+1).setPeca(cavalo);

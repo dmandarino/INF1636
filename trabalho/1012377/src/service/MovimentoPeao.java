@@ -40,6 +40,7 @@ public class MovimentoPeao implements Movimento<Peao>{
 			
 			if ( isTomadaDePeca(casas.get(p.getCasa().getNumCasa() + direcao), casaDestino) && direcaoCerta(direcao, p)){
 				tomadaDePeca.tomar(casas, p, casas.get(p.getCasa().getNumCasa() + direcao), pecasAdversarias);
+				isPromocaoPeao(p, casas, pecasAmigas);
 				return;
 			}
 			
@@ -47,7 +48,7 @@ public class MovimentoPeao implements Movimento<Peao>{
 				while(pecaNaoEstaNaCasa(p, casaDestino)){
 					if ( isCasaOcupadaMesmaCor(casas.get(p.getCasa().getNumCasa() + direcao), p))
 						throw new CasaOcupadaException();
-					
+
 					else if(movimentoValido(p, casas.get(p.getCasa().getNumCasa() + direcao))){
 						p.setPrimeiroMovimento(false);
 						casas.get(p.getCasa().getNumCasa()+1).setPeca(null);
@@ -57,6 +58,7 @@ public class MovimentoPeao implements Movimento<Peao>{
 					}
 					else throw new MoimentoInvalidoException();
 				}
+			
 			}else throw new MoimentoInvalidoException();
 		} catch (MoimentoInvalidoException e) {
 		} catch (CasaOcupadaException e) {

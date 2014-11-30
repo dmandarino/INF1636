@@ -5,6 +5,7 @@ import java.util.List;
 
 import modelos.Casa;
 import modelos.Peca;
+import modelos.PecaEnum;
 import modelos.Rainha;
 import Exception.CasaOcupadaException;
 import Exception.MoimentoInvalidoException;
@@ -19,6 +20,7 @@ public class MovimentoRainha implements Movimento<Rainha>{
 	private static final int BAIXO_ESQ = 8;
 	private static final int CIMA_DIR = -6;
 	private static final int CIMA_ESQ = -8;
+	private Integer[] direcoes = {-7, 2, 0, 9, 10, 8, -6, -8};
 	
 	private TomadaDePeca tomadaDePeca = new TomadaDePeca();
 	
@@ -27,10 +29,11 @@ public class MovimentoRainha implements Movimento<Rainha>{
 		try{
 			if ( isCasaOcupadaMesmaCor(casaDestino, rainha))
 				throw new CasaOcupadaException();
-
+ 
 			Integer direcao = getDirecao(rainha, casaDestino);
 
 			if(movimentoValido(rainha, casaDestino)){
+				rainha.setPrimeiroMovimento(false);
 				while(pecaNaoEstaNaCasa(rainha, casaDestino)){
 					if ( isCasaOcupadaMesmaCor(casas.get(rainha.getCasa().getNumCasa() + direcao), rainha))
 						throw new CasaOcupadaException();
@@ -46,6 +49,8 @@ public class MovimentoRainha implements Movimento<Rainha>{
 					}
 					else throw new MoimentoInvalidoException();
 				}
+				if(isCheck(rainha, casas))
+					System.out.println("CHECK!");
 			
 			}else throw new MoimentoInvalidoException();
 			} catch (MoimentoInvalidoException e) {
@@ -113,5 +118,23 @@ public class MovimentoRainha implements Movimento<Rainha>{
 		
 	}
 
+	private boolean isCheck(Rainha rainha, HashMap<Integer, Casa> casas){
+		for(int i=1; i <= direcoes.length; i++){
+			Casa casa = casas.get(rainha.getCasa().getNumCasa()+direcoes[i]-1);
+			while(casa.getPeca() != null){
+				if(!isLimiteTabuleiro(casas.get(casa.getNumCasa()+1))){
+					casa = casas.get(casa.getNumCasa()+direcoes[i]);
+				} 
+				else break;
+			}
+			if(casa.getPeca().getTipo().equals(PecaEnum.REI))
+				return true;
+		}
+		return false;
+	}
+
+	private boolean isLimiteTabuleiro(Casa casa) {
+		return casa.getNumCasa()%8 == 0 || casa.getNumCasa()%8 == 7;
+	}
 
 }
