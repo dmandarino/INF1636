@@ -24,7 +24,7 @@ public class Check {
 				else break;
 			}
 			if(casa.getPeca() != null)
-				if(casa.getPeca().getTipo().equals(PecaEnum.REI))
+				if(casa.getPeca().getTipo().equals(PecaEnum.REI) && !peca.isBranco().equals(casa.getPeca().isBranco()))
 					jOptionPane.showMessageDialog(null, "CHECK!");
 		}
 	}
