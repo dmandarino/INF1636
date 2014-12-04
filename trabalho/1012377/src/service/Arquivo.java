@@ -15,11 +15,11 @@ public class Arquivo {
 		PrintWriter gravarArq = new PrintWriter(arq); 
 		
 		for (Peca peca : pecasBrancas) {
-			gravarArq.printf(" %2d | %s | %s %n", peca.getCasa().getNumCasa(), peca.getTipo().toString(), peca.isBranco());
+			gravarArq.printf(" %2d | %s | %s | %s %n", peca.getCasa().getNumCasa(), peca.getTipo().toString(), peca.isBranco(), peca.isPrimeiroMovimento());
 		}
 		
 		for (Peca peca : pecasPretas) {
-			gravarArq.printf(" %2d | %s | %s %n", peca.getCasa().getNumCasa(), peca.getTipo().toString(), peca.isBranco());
+			gravarArq.printf(" %2d | %s | %s | %s %n", peca.getCasa().getNumCasa(), peca.getTipo().toString(), peca.isBranco(), peca.isPrimeiroMovimento());
 		}
 		
 //		for (HashMap.Entry<Integer, Casa> casa : casas.entrySet()) {

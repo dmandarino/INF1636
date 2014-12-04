@@ -1,16 +1,32 @@
- 48 | PEAO | true 
- 49 | PEAO | true 
- 50 | PEAO | true 
- 51 | PEAO | true 
- 44 | PEAO | true 
- 53 | PEAO | true 
- 54 | PEAO | true 
- 55 | PEAO | true 
- 56 | TORRE | true 
- 63 | TORRE | true 
- 57 | CAVALO | true 
- 62 | CAVALO | true 
- 58 | BISPO | true 
- 61 | BISPO | true 
- 12 | RAINHA | true 
- 60 | REI | true 
+ 48 | PEAO | true | true 
+ 49 | PEAO | true | true 
+ 50 | PEAO | true | true 
+ 43 | PEAO | true | false 
+ 52 | PEAO | true | true 
+ 53 | PEAO | true | true 
+ 54 | PEAO | true | true 
+ 55 | PEAO | true | true 
+ 56 | TORRE | true | true 
+ 63 | TORRE | true | true 
+ 57 | CAVALO | true | true 
+ 62 | CAVALO | true | true 
+ 58 | BISPO | true | true 
+ 61 | BISPO | true | true 
+ 59 | RAINHA | true | true 
+ 60 | REI | true | true 
+  8 | PEAO | false | true 
+  9 | PEAO | false | true 
+ 10 | PEAO | false | true 
+ 11 | PEAO | false | true 
+ 12 | PEAO | false | true 
+ 13 | PEAO | false | true 
+ 14 | PEAO | false | true 
+ 15 | PEAO | false | true 
+  0 | TORRE | false | true 
+  7 | TORRE | false | true 
+  1 | CAVALO | false | true 
+  6 | CAVALO | false | true 
+  2 | BISPO | false | true 
+  5 | BISPO | false | true 
+  3 | RAINHA | false | true 
+  4 | REI | false | true 
