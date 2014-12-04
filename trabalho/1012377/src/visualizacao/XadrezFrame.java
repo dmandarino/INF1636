@@ -104,7 +104,11 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 	 @Override
 	 public void mouseReleased(MouseEvent e) {
 		 int click = getClick(e);
-		 p.mouseReleased(casaClicada, click);
+		 try {
+			p.mouseReleased(casaClicada, click);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		 casas = p.getCasas();
 		 pecasBrancas = p.getPecasBrancas();
 		 pecasPretas = p.getPecasPretas();

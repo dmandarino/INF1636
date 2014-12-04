@@ -1,0 +1,16 @@
+ 48 | PEAO | true 
+ 49 | PEAO | true 
+ 50 | PEAO | true 
+ 51 | PEAO | true 
+ 44 | PEAO | true 
+ 53 | PEAO | true 
+ 54 | PEAO | true 
+ 55 | PEAO | true 
+ 56 | TORRE | true 
+ 63 | TORRE | true 
+ 57 | CAVALO | true 
+ 62 | CAVALO | true 
+ 58 | BISPO | true 
+ 61 | BISPO | true 
+ 12 | RAINHA | true 
+ 60 | REI | true 

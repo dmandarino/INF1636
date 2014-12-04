@@ -2,28 +2,19 @@ package visualizacao;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Exception.CasaOcupadaException;
-import Exception.CasaVaziaException;
-import modelos.Bispo;
 import modelos.Casa;
-import modelos.Cavalo;
-import modelos.Peao;
 import modelos.Peca;
 import modelos.PecaEnum;
-import modelos.Rainha;
-import modelos.Rei;
-import modelos.Torre;
+import service.Arquivo;
 import service.Movimento;
 import service.MovimentoBispo;
 import service.MovimentoCavalo;
@@ -43,7 +34,7 @@ public class XadrezPainel extends JPanel
 	private Casa casaDestino = new Casa();
 	private Object xadrezFrame;
 	private JOptionPane jOptionPane = new JOptionPane();
-
+	private Arquivo arq = new Arquivo();
 	
 	public XadrezPainel() {
 	}
@@ -87,7 +78,7 @@ public class XadrezPainel extends JPanel
 		  return casaClicada;
     }  
 
-    public void mouseReleased(Casa casaClicada, int click) {
+    public void mouseReleased(Casa casaClicada, int click) throws IOException {
 		  casaDestino = casas.get(click);
 		  System.out.println(casaClicada.getNumCasa().toString() + "  " + casaDestino.getNumCasa().toString());
 		  Peca peca = casaClicada.getPeca();
@@ -128,6 +119,7 @@ public class XadrezPainel extends JPanel
 			  mov.andar (peca, casaDestino, casas, pecasPretas);
 		  else 
 			  mov.andar (peca, casaDestino, casas, pecasBrancas);
+		  arq.salvaJogo(pecasPretas, pecasBrancas);
 		  jogoTerminou(pecasPretas, pecasBrancas);
     }
 

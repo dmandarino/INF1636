@@ -53,10 +53,6 @@ public class Peca {
 		this.tipo = tipo;
 	}
 
-	public Boolean getIsBranco() {
-		return isBranco;
-	}
-
 	public void setIsBranco(Boolean isBranco) {
 		this.isBranco = isBranco;
 	}
