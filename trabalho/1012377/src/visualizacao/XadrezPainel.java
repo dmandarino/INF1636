@@ -1,7 +1,6 @@
 package visualizacao;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,27 +30,13 @@ public class XadrezPainel extends JPanel
 	private List<Peca> pecasPretas = new ArrayList<Peca>();
 	private Casa casaClicada = new Casa();
 	private Casa casaDestino = new Casa();
-	private Object xadrezFrame;
 	private JOptionPane jOptionPane = new JOptionPane();
 	private Arquivo arq = new Arquivo();
+	public Peca peca = new Peca();
 	
 	public XadrezPainel() {
 	}
 	
-	public Peca peca = new Peca();
-	private Image	bispo_branco, 
-					cavalo_branco,
-					dama_branco,
-					peao_branco,
-					rei_branco,
-					torre_branco,
-					bispo_preto,
-					cavalo_preto,
-					dama_preto,
-					peao_preto,
-					rei_preto,
-					torre_preto;
-
 
 	int painel	= 0;
 	protected Object inputRecorder;
@@ -79,7 +64,6 @@ public class XadrezPainel extends JPanel
 
     public void mouseReleased(Casa casaClicada, int click){
 		  casaDestino = casas.get(click);
-		  System.out.println(casaClicada.getNumCasa().toString() + "  " + casaDestino.getNumCasa().toString());
 		  Peca peca = casaClicada.getPeca();
 		  if(peca == null){
 			  System.out.println("Casa Vazia");
@@ -119,7 +103,6 @@ public class XadrezPainel extends JPanel
 		  else 
 			  mov.andar (peca, casaDestino, casas, pecasBrancas);
 		  arq.salvaJogo(pecasPretas, pecasBrancas);
-		  arq.recuperaJogo(casas, pecasBrancas, pecasPretas);
 		  jogoTerminou(pecasPretas, pecasBrancas);
     }
 

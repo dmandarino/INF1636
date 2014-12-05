@@ -16,6 +16,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import service.Arquivo;
 import modelos.Bispo;
 import modelos.Casa;
 import modelos.Cavalo;
@@ -40,6 +41,7 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 	private List<Peca> pecasBrancas = new ArrayList<Peca>();
 	private List<Peca> pecasPretas = new ArrayList<Peca>();
 	private XadrezPainel p = new XadrezPainel();
+	private Arquivo arq = new Arquivo();
 	
 	private Image	bispo_branco, 
 	cavalo_branco,
@@ -90,6 +92,7 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
         	 else
         		 branco = true;
          }
+         arq.carregaDados(casas, pecasBrancas, pecasPretas);
          p.carregaDados(casas, pecasBrancas, pecasPretas);
          p.paintComponent(g2d);
 	 }
@@ -183,8 +186,22 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 	}
 	
 	private void iniciarPecas() {
-		pecasBrancas = criarPecas(true, casas);
-		pecasPretas = criarPecas(false, casas);
+		File file =  new File("jogo.txt");  
+        if(file.exists()){
+        	casas = arq.recuperaJogo(casas);
+        	for (HashMap.Entry<Integer, Casa> casa : casas.entrySet()) {
+        		if(casa.getValue().getPeca() != null){
+	        		if(casa.getValue().getPeca().isBranco())
+	        			pecasBrancas.add(casa.getValue().getPeca());
+	        		else
+	        			pecasPretas.add(casa.getValue().getPeca());
+        		}
+        	}
+        }else{
+        	pecasBrancas = criarPecas(true, casas);
+        	pecasPretas = criarPecas(false, casas);
+        }
+        System.out.println("fim");
 	}
 
 	private List<Peca> criarPecas(boolean isBranca, HashMap<Integer, Casa> casas) {

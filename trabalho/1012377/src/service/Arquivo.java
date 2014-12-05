@@ -19,6 +19,10 @@ import modelos.PecaEnum;
 
 public class Arquivo { 
 	
+	private HashMap<Integer, Casa> casas = new HashMap<Integer, Casa>();
+	private List<Peca> pecasBrancas = new ArrayList<Peca>();
+	private List<Peca> pecasPretas = new ArrayList<Peca>();
+	
 	private Image	bispo_branco, 
 	cavalo_branco,
 	dama_branco,
@@ -31,6 +35,12 @@ public class Arquivo {
 	peao_preto,
 	rei_preto,
 	torre_preto;
+	
+	public void carregaDados(HashMap<Integer, Casa> casas, List<Peca> pecasBrancas, List<Peca> pecasPretas){
+		this.casas = casas;
+		this.pecasBrancas = pecasBrancas;
+		this.pecasPretas = pecasPretas;
+	}
 	
 	public void salvaJogo(List<Peca> pecasPretas, List<Peca> pecasBrancas){
 		try{		
@@ -55,7 +65,7 @@ public class Arquivo {
 		gravarArq.printf("%d-%d-%s-%s-%s%n", peca.getCasa().getNumCasa(), peca.getId(), peca.getTipo().toString(), peca.isBranco(), peca.isPrimeiroMovimento());
 	} 
 	
-	public void recuperaJogo(HashMap<Integer, Casa> casas, List<Peca> pecasBrancas, List<Peca> pecasPretas){
+	public HashMap<Integer, Casa> recuperaJogo(HashMap<Integer, Casa> casas){
 		try { 
 			Peca peca = new Peca();
 			carregaImagem();
@@ -79,13 +89,14 @@ public class Arquivo {
 				else
 					pecasPretas.add(peca);
 				casas.get(peca.getCasa().getNumCasa()+1).setPeca(peca);
-				
+				System.out.println(casas.get(peca.getCasa().getNumCasa()+1).getPeca().isBranco().toString());
 				linha = lerArq.readLine(); 
 			}
 			arq.close(); 
 		} catch (IOException e) { 
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage()); 
 		}
+		return casas;
 	}
 
 	
