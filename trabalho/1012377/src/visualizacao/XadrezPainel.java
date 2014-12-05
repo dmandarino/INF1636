@@ -2,7 +2,6 @@ package visualizacao;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +77,7 @@ public class XadrezPainel extends JPanel
 		  return casaClicada;
     }  
 
-    public void mouseReleased(Casa casaClicada, int click) throws IOException {
+    public void mouseReleased(Casa casaClicada, int click){
 		  casaDestino = casas.get(click);
 		  System.out.println(casaClicada.getNumCasa().toString() + "  " + casaDestino.getNumCasa().toString());
 		  Peca peca = casaClicada.getPeca();
@@ -120,6 +119,7 @@ public class XadrezPainel extends JPanel
 		  else 
 			  mov.andar (peca, casaDestino, casas, pecasBrancas);
 		  arq.salvaJogo(pecasPretas, pecasBrancas);
+		  arq.recuperaJogo(casas, pecasBrancas, pecasPretas);
 		  jogoTerminou(pecasPretas, pecasBrancas);
     }
 
