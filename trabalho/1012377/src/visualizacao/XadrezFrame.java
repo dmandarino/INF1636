@@ -188,20 +188,32 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 	private void iniciarPecas() {
 		File file =  new File("jogo.txt");  
         if(file.exists()){
-        	casas = arq.recuperaJogo(casas);
-        	for (HashMap.Entry<Integer, Casa> casa : casas.entrySet()) {
-        		if(casa.getValue().getPeca() != null){
-	        		if(casa.getValue().getPeca().isBranco())
-	        			pecasBrancas.add(casa.getValue().getPeca());
-	        		else
-	        			pecasPretas.add(casa.getValue().getPeca());
-        		}
-        	}
+//        	casas = arq.recuperaJogo(casas);
+//        	pecasBrancas = arq.getBrancas();
+//        	pecasPretas = arq.getPretas();
+//        	for (HashMap.Entry<Integer, Casa> casa : casas.entrySet()) {
+//        		if(casa.getValue().getPeca() != null){
+//	        		if(casa.getValue().getPeca().isBranco())
+//	        			pecasBrancas.add(casa.getValue().getPeca());
+//	        		else
+//	        			pecasPretas.add(casa.getValue().getPeca());
+//        		}
+//        	}
+        	
+        	List<Peca> pecas = arq.recuperaJogo(casas);
+        	for (Peca peca : pecas) {
+        		casas.get(peca.getCasa().getNumCasa()+1).setPeca(peca);
+        		if(peca.isBranco())
+        			pecasBrancas.add(peca);
+        		else
+        			pecasPretas.add(peca);
+			}
+        	
+        	
         }else{
         	pecasBrancas = criarPecas(true, casas);
         	pecasPretas = criarPecas(false, casas);
         }
-        System.out.println("fim");
 	}
 
 	private List<Peca> criarPecas(boolean isBranca, HashMap<Integer, Casa> casas) {
