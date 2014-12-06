@@ -188,18 +188,6 @@ public class XadrezFrame extends JPanel implements MouseListener, MouseMotionLis
 	private void iniciarPecas() {
 		File file =  new File("jogo.txt");  
         if(file.exists()){
-//        	casas = arq.recuperaJogo(casas);
-//        	pecasBrancas = arq.getBrancas();
-//        	pecasPretas = arq.getPretas();
-//        	for (HashMap.Entry<Integer, Casa> casa : casas.entrySet()) {
-//        		if(casa.getValue().getPeca() != null){
-//	        		if(casa.getValue().getPeca().isBranco())
-//	        			pecasBrancas.add(casa.getValue().getPeca());
-//	        		else
-//	        			pecasPretas.add(casa.getValue().getPeca());
-//        		}
-//        	}
-        	
         	List<Peca> pecas = arq.recuperaJogo(casas);
         	for (Peca peca : pecas) {
         		casas.get(peca.getCasa().getNumCasa()+1).setPeca(peca);

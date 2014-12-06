@@ -13,9 +13,15 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import modelos.Bispo;
 import modelos.Casa;
+import modelos.Cavalo;
+import modelos.Peao;
 import modelos.Peca;
 import modelos.PecaEnum;
+import modelos.Rainha;
+import modelos.Rei;
+import modelos.Torre;
 
 public class Arquivo { 
 	
@@ -85,7 +91,21 @@ public class Arquivo {
 	private void montaListaDePecas(HashMap<Integer, Casa> casas) {
 		for (String linha : jogadas) {
 			String[] dados = linha.split("-");
+			
 			Peca peca = new Peca();
+			if(dados[2].equals("PEAO")){
+				peca = new Peao();
+			} else if(dados[2].equals("TORRE")){
+				peca = new Torre();
+			} else if(dados[2].equals("BISPO")){
+				peca = new Bispo();
+			} else if(dados[2].equals("CAVALO")){
+				peca = new Cavalo();
+			}else if(dados[2].equals("RAINHA")){
+				peca = new Rainha();
+			}else if(dados[2].equals("REI")){
+				peca = new Rei();
+			}
 			peca.setCasa(casas.get(Integer.valueOf(dados[0])+1));
 			peca.setId(Long.valueOf(dados[1]));
 			peca.setIsBranco(Boolean.valueOf(dados[3]));
